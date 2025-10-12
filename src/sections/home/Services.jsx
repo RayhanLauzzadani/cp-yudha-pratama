@@ -1,9 +1,9 @@
 // src/sections/Services.jsx
-import bgLayanan from "../assets/images/bg-layanan.png";
-import rumahImg from "../assets/images/pt-rumah.png";
-import buildingIcon from "../assets/icons/building.svg";
-import rockIcon from "../assets/icons/rock.svg";
-import truckIcon from "../assets/icons/truck.svg";
+import bgLayanan from "../../assets/images/bg-layanan.png";
+import rumahImg from "../../assets/images/pt-rumah.png";
+import buildingIcon from "../../assets/icons/building.svg";
+import rockIcon from "../../assets/icons/rock.svg";
+import truckIcon from "../../assets/icons/truck.svg";
 
 const services = [
   {
