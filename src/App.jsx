@@ -1,8 +1,8 @@
 // src/App.jsx
 import Navbar from "./components/common/Navbar";
-import Hero from "./sections/Hero";
-import About from "./sections/About";
-import Services from "./sections/Services"; // ⬅️ tambahkan import baru
+import Hero from "./sections/home/Hero";
+import About from "./sections/home/About";
+import Services from "./sections/home/Services"; // ⬅️ tambahkan import baru
 
 export default function App() {
   return (
