@@ -1,10 +1,5 @@
-import React from "react";
+import Layanan from "../sections/layanan/Layanan";
 
-export default function Layanan() {
-  return (
-    <>
-      <div className="h-16" />
-      <h1>Layanan Kami</h1>
-    </>
-  );
+export default function LayananPage() {
+  return <Layanan />;
 }
