@@ -6,7 +6,7 @@ import ServicesPage from "./pages/Layanan.jsx";
 // import ProjectsPage from "./pages/ProjectsPage.jsx";
 // import GalleryPage from "./pages/GalleryPage.jsx";
 // import ContactPage from "./pages/ContactPage.jsx";
-// import NotFound from "./pages/NotFound.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
   return (
@@ -25,8 +25,8 @@ export default function App() {
         {/* <Route path="/home" element={<Navigate to="/" replace />} /> */}
 
         {/* 404 */}
-        {/* <Route path="*" element={<NotFound />} /> */}
       </Route>
+        <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
