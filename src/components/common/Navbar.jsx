@@ -1,5 +1,5 @@
 // components/common/Navbar.jsx
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { ReactComponent as LogoLockup } from "../../assets/brand/logo-lockup.svg";
 import { ReactComponent as DownloadIcon } from "../../assets/icons/download.svg";
@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { id: "about", label: "TENTANG KAMI", type: "route", to: "/about" },
   { id: "services", label: "LAYANAN", type: "route", to: "/services" },
   { id: "projects", label: "PROYEK", type: "hash", to: "#projects" },
-  { id: "gallery", label: "GALERI", type: "hash", to: "#gallery" },
+  // { id: "gallery", label: "GALERI", type: "hash", to: "#gallery" },
 ];
 
 const COMPANY_PROFILE_URL = "/company-profile.pdf";
@@ -36,7 +36,7 @@ export default function Navbar() {
     // Halaman selain "/" → pakai nama path
     if (pathname !== "/") {
       // contoh: /about → 'about'
-      const p = pathname.replace(/^\/+/, ""); // hilangkan leading slash
+      const p = pathname.replace(/^\/+/, "");
       const fromPath = NAV_ITEMS.find(
         (it) => it.type === "route" && it.id === p
       );
@@ -60,7 +60,7 @@ export default function Navbar() {
   }, [pathname, hash]);
 
   // ---- Update underline position saat activeId/resize berubah ----
-  const updateIndicator = () => {
+  const updateIndicator = useCallback(() => {
     const idx = NAV_ITEMS.findIndex((it) => it.id === activeId);
     const el = itemRefs.current[idx];
     const container = innerNavRef.current;
@@ -68,7 +68,7 @@ export default function Navbar() {
     const crect = container.getBoundingClientRect();
     const rect = el.getBoundingClientRect();
     setIndicator({ left: rect.left - crect.left, width: rect.width });
-  };
+  }, [activeId]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -77,7 +77,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Tunda 1 frame untuk pastikan layout sudah stabil (font metric dsb.)
     const r1 = requestAnimationFrame(updateIndicator);
     const onResize = () => updateIndicator();
     window.addEventListener("resize", onResize);
@@ -120,14 +119,14 @@ export default function Navbar() {
             <LogoLockup className="h-[42px] sm:h-[44px] lg:h-[46px] xl:h-[55px] w-auto" />
           </NavLink>
 
-          {/* CENTER: NAV (desktop) */}
+          {/* CENTER: NAV (desktop) — FLEXIBLE & CENTERED */}
           <nav
-            className="hidden lg:block absolute left-1/2 -translate-x-1/2"
+            className="hidden lg:flex flex-1 items-center justify-center"
             aria-label="Primary"
           >
             <div
               ref={innerNavRef}
-              className="relative flex items-center w-[590px] h-[34px] px-[40px] gap-[58px]"
+              className="relative flex items-center h-[34px] px-4 sm:px-6 gap-10 md:gap-14 xl:gap-20"
             >
               {/* underline */}
               <span
