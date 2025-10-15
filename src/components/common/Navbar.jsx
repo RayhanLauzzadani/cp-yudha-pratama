@@ -1,5 +1,5 @@
 // components/common/Navbar.jsx
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { ReactComponent as LogoLockup } from "../../assets/brand/logo-lockup.svg";
 import { ReactComponent as DownloadIcon } from "../../assets/icons/download.svg";
@@ -60,7 +60,7 @@ export default function Navbar() {
   }, [pathname, hash]);
 
   // ---- Update underline position saat activeId/resize berubah ----
-  const updateIndicator = () => {
+  const updateIndicator = useCallback(() => {
     const idx = NAV_ITEMS.findIndex((it) => it.id === activeId);
     const el = itemRefs.current[idx];
     const container = innerNavRef.current;
@@ -68,7 +68,7 @@ export default function Navbar() {
     const crect = container.getBoundingClientRect();
     const rect = el.getBoundingClientRect();
     setIndicator({ left: rect.left - crect.left, width: rect.width });
-  };
+  }, [activeId]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
