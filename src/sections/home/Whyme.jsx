@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import bgMengapaKamiMobile from "../../assets/icons/bg-mengapakami_mobile.png";
 import bgMengapaKamiDesktop from "../../assets/icons/bg-mengapakami.png";
 import bgMengapaBundar from "../../assets/icons/bg-mengapa_bundar_mobile.png";
 
+// Icon stepper (pastikan SVG memakai currentColor)
+import { ReactComponent as MedalIcon } from "../../assets/icons/medal.svg";
+import { ReactComponent as LabIcon } from "../../assets/icons/lab.svg";
+import { ReactComponent as GlobeIcon } from "../../assets/icons/globe.svg";
+
 const Whyme = () => {
+  const [activeDot, setActiveDot] = useState(-1); // -1 = semua default
+  const icons = [MedalIcon, LabIcon, GlobeIcon];
+
   return (
     <section
       id="whyme"
@@ -47,7 +55,7 @@ const Whyme = () => {
         />
       </div>
 
-      {/* Heading Utama */}
+      {/* Heading */}
       <div className="relative z-10">
         <h2
           id="whyme-heading"
@@ -62,14 +70,15 @@ const Whyme = () => {
         </h2>
       </div>
 
-      {/* Container dengan Text Deskripsi + Button - Desktop */}
+      {/* Desktop description + button */}
       <div className="relative z-10 hidden lg:block lg:ml-8 lg:mt-6">
         <div className="px-4 py-[14px] inline-block border border-[#FFFFFF] rounded-xl">
           <p
             className="text-[#FAFAFA] text-[14px] mb-[14px] max-w-[400px]"
             style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}
           >
-            Keunggulan yang membuat kami menjadi pilihan utama untuk proyek konstruksi Anda
+            Keunggulan yang membuat kami menjadi pilihan utama untuk proyek
+            konstruksi Anda
           </p>
           <button
             className="flex items-center gap-2 px-[26px] py-[11px] 
@@ -79,31 +88,24 @@ const Whyme = () => {
             style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}
           >
             SELENGKAPNYA
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
       </div>
 
-      {/* Container dengan Text Deskripsi + Button - Mobile (updated) */}
+      {/* Mobile description + button */}
       <div className="relative z-10 lg:hidden px-4 mt-3">
-        {/* Rectangle/Group dengan padding 32px kanan–kiri, max-width 340px */}
         <div className="px-8 py-[14px] border border-[#FFFFFF] rounded-xl max-w-[340px] mx-auto">
-          {/* Text Deskripsi: center + max-w 340px */}
           <p
             className="text-[#FAFAFA] text-[12px] mb-[14px] text-center max-w-[340px] mx-auto"
             style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}
           >
-            Keunggulan yang membuat kami menjadi pilihan utama untuk proyek konstruksi Anda
+            Keunggulan yang membuat kami menjadi pilihan utama untuk proyek
+            konstruksi Anda
           </p>
 
-          {/* Button Selengkapnya - Mobile */}
           <button
             className="flex items-center gap-1.5 px-[20px] py-[7px] 
                        border border-white text-white rounded-[20px]
@@ -112,16 +114,57 @@ const Whyme = () => {
             style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}
           >
             Selengkapnya
-            <svg
-              className="w-3 h-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
+
+        {/* ==== MOBILE STEPPER ICONS (smooth + max-w 268px) ==== */}
+        <div className="relative mx-auto mt-[18px] max-w-[268px] px-8">
+          {/* garis konektor mengikuti padding (left/right = px-8) */}
+          <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-[2px] bg-[#5F5F5F] z-0" />
+
+          <div className="relative z-10 flex items-center justify-between">
+            {[MedalIcon, LabIcon, GlobeIcon].map((IconComp, i) => {
+              const selected = activeDot === i;
+
+              // ukuran dasar + scale agar transisi halus
+              const BASE = 40;              // diameter base (px)
+              const SCALE = 1.12;           // scale saat selected (≈ 44.8px)
+              const ICON_BASE = 20;         // icon base (px)
+              const ICON_SELECTED = 22;     // icon selected (px)
+
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveDot((prev) => (prev === i ? -1 : i))}
+                  className={`grid place-items-center rounded-full shadow-sm
+                              transition-[transform,background-color,color] duration-200
+                              ${selected ? "bg-white text-black" : "bg-[#2F2F2F] text-white"}`}
+                  style={{
+                    width: BASE,
+                    height: BASE,
+                    transform: `scale(${selected ? SCALE : 1})`,
+                    // easing lebih empuk
+                    transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                  }}
+                  aria-pressed={selected}
+                  aria-label={i === 0 ? "Keunggulan kualitas" : i === 1 ? "Inovasi" : "Jangkauan/Global"}
+                >
+                  <IconComp
+                    width={selected ? ICON_SELECTED : ICON_BASE}
+                    height={selected ? ICON_SELECTED : ICON_BASE}
+                    className="transition-[width,height] duration-200"
+                    style={{ transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)" }}
+                  />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        {/* ==== end stepper ==== */}
       </div>
 
       {/* Spacer */}
