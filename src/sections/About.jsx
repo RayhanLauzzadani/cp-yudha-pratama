@@ -1,5 +1,5 @@
 // src/sections/About.jsx
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import teamPhoto from "../assets/images/team-photo.png";
 
 const DURATION_STAGE1 = 650; // pink moveShrink & grayMoveMorphStage1

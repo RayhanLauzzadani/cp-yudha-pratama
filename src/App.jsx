@@ -1,7 +1,7 @@
 // src/App.jsx
 import Navbar from "./components/common/Navbar";
 import Hero from "./sections/home/Hero";
-import About from "./sections/home/About";
+import About from "./sections/home/AboutClean";
 import Services from "./sections/home/Services"; // ⬅️ tambahkan import baru
 
 export default function App() {
@@ -28,6 +28,7 @@ export default function App() {
         <section id="services" aria-label="Layanan / Bidang Usaha" className="scroll-mt-20">
           <Services />
         </section>
+
 
         {/* === PROJECTS === */}
         <section

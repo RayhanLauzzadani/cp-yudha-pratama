@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { ReactComponent as LogoLockup } from "../../assets/brand/logo-lockup.svg";
 import { ReactComponent as DownloadIcon } from "../../assets/icons/download.svg";
 import { Button } from "../ui/button";
@@ -24,7 +24,7 @@ export default function Navbar() {
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
   // helper: update posisi & lebar underline berdasarkan item aktif
-  const updateIndicator = () => {
+  const updateIndicator = useCallback(() => {
     const idx = NAV_ITEMS.findIndex((it) => it.id === active);
     const el = itemRefs.current[idx];
     const container = innerNavRef.current;
@@ -32,7 +32,7 @@ export default function Navbar() {
     const crect = container.getBoundingClientRect();
     const rect = el.getBoundingClientRect();
     setIndicator({ left: rect.left - crect.left, width: rect.width });
-  };
+  }, [active]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -50,7 +50,7 @@ export default function Navbar() {
       cancelAnimationFrame(r1);
       window.removeEventListener("resize", onResize);
     };
-  }, [active]);
+  }, [updateIndicator]);
 
   const handleClick = (id) => {
     setActive(id);
