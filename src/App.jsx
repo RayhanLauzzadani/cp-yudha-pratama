@@ -1,24 +1,38 @@
+<<<<<<< HEAD
 // src/App.jsx
 import Navbar from "./components/common/Navbar";
 import Hero from "./sections/home/Hero";
 import About from "./sections/home/AboutClean";
 import Services from "./sections/home/Services"; // ⬅️ tambahkan import baru
+=======
+import { Routes, Route, Navigate } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout.jsx";
+import Home from "./pages/Home.jsx";
+import AboutPage from "./pages/About.jsx";
+import ServicesPage from "./pages/Layanan.jsx";
+// import ProjectsPage from "./pages/ProjectsPage.jsx";
+// import GalleryPage from "./pages/GalleryPage.jsx";
+// import ContactPage from "./pages/ContactPage.jsx";
+import NotFound from "./pages/NotFound.jsx";
+>>>>>>> 44151cc7660bcb785978e8edf1cfdfa1fb5cea8e
 
 export default function App() {
   return (
-    <>
-      {/* Navbar tetap (fixed di atas) */}
-      <Navbar />
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
 
-      {/* Spacer agar konten tidak ketutup navbar (tinggi ≈ 64px / h-16) */}
-      <div className="h-16" />
+        {/* Halaman terpisah */}
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        {/* <Route path="/projects" element={<ProjectsPage />} /> */}
+        {/* <Route path="/gallery" element={<GalleryPage />} /> */}
+        {/* <Route path="/contact" element={<ContactPage />} /> */}
 
-      <main className="overflow-x-hidden">
-        {/* === HERO / HOME === */}
-        <section id="home" aria-label="Beranda">
-          <Hero />
-        </section>
+        {/* Opsional: redirect lama ke baru */}
+        {/* <Route path="/home" element={<Navigate to="/" replace />} /> */}
 
+<<<<<<< HEAD
         {/* === ABOUT === */}
         <section id="about" aria-label="Tentang Kami" className="scroll-mt-20">
           <About />
@@ -64,5 +78,11 @@ export default function App() {
         </section>
       </main>
     </>
+=======
+        {/* 404 */}
+      </Route>
+        <Route path="*" element={<NotFound />} />
+    </Routes>
+>>>>>>> 44151cc7660bcb785978e8edf1cfdfa1fb5cea8e
   );
 }
