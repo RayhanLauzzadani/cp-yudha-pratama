@@ -53,28 +53,6 @@ export default function Home() {
 
         {/* === MENGAPA KAMI / WHY ME === */}
         <Whyme />
-
-        {/* === GALLERY === */}
-        <section
-          id="gallery"
-          aria-label="Galeri"
-          className="min-h-[40vh] flex items-center justify-center text-[#383737]/60"
-        >
-          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 w-full">
-            <p className="text-center">Section Galeri — coming soon.</p>
-          </div>
-        </section>
-
-        {/* === CONTACT === */}
-        <section
-          id="contact"
-          aria-label="Kontak"
-          className="min-h-[40vh] flex items-center justify-center text-[#383737]/60"
-        >
-          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 w-full">
-            <p className="text-center">Section Kontak — coming soon.</p>
-          </div>
-        </section>
       </main>
     </>
   );

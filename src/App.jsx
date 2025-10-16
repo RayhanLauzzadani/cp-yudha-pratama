@@ -9,12 +9,22 @@ import NotFound from "./pages/NotFound.jsx";
 export default function App() {
   return (
     <Routes>
+      {/* Layout untuk semua halaman */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
+<<<<<<< HEAD
         {/* <Route path="/home" element={<Navigate to="/" replace />} /> */}
       </Route>
+=======
+        {/* <Route path="/projects" element={<ProjectsPage />} /> */}
+        {/* <Route path="/gallery" element={<GalleryPage />} /> */}
+        {/* <Route path="/contact" element={<ContactPage />} /> */}
+      </Route>
+
+      {/* 404 Route */}
+>>>>>>> 8e9a09f5bf3bf65fd98112e757aedc5e4d4c6add
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
