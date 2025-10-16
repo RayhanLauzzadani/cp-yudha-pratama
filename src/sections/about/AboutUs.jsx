@@ -74,7 +74,7 @@ export default function AboutUs() {
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-white overflow-hidden flex flex-col items-center">
+    <section className="relative w-full min-h-screen bg-white overflow-hidden flex flex-col items-center md:pb-6">
       {/* Vector atas kiri */}
       <img
         src={vectorTop}
@@ -138,7 +138,7 @@ export default function AboutUs() {
       {/* Box teks dengan konten dinamis dan animasi */}
       <div className="mt-[16px] lg:mt-[24px] w-full px-4 flex justify-center relative">
         <div 
-          className="rounded-lg px-[12px] sm:px-[16px] md:px-[20px] lg:px-[32px] xl:px-[40px] py-[16px] sm:py-[18px] md:py-[20px] lg:py-[28px] xl:py-[32px] text-center w-full max-w-[340px] sm:max-w-[480px] md:max-w-[580px] lg:max-w-[800px] xl:max-w-[1100px] min-h-[200px] sm:min-h-[220px] md:min-h-[240px] lg:min-h-[200px] xl:min-h-[220px] flex items-center justify-center"
+          className="rounded-lg px-[12px] sm:px-[16px] md:px-[20px] lg:px-[32px] xl:px-[40px] py-[16px] sm:py-[18px] md:py-[20px] lg:py-[28px] xl:py-[32px] text-center w-full max-w-[340px] sm:max-w-[480px] md:max-w-[580px] lg:max-w-[800px] xl:max-w-[1100px] min-h-[260px] sm:min-h-[280px] md:min-h-[300px] lg:min-h-[240px] xl:min-h-[260px] flex items-center justify-center"
           style={{
             border: '0.4px solid rgba(0, 0, 0, 0.25)'
           }}>
@@ -175,8 +175,9 @@ export default function AboutUs() {
         </button>
       </div>
 
-      {/* Mobile Carousel Controls */}
-      <div className="lg:hidden absolute top-[440px] sm:top-[480px] md:top-[520px] left-0 right-0 w-full flex items-center justify-center z-20">
+      {/* Mobile Carousel Controls - Arrow menempel tepi, progress bar di tengah */}
+      <div className="lg:hidden relative mt-[18px] w-full flex items-center justify-center z-20">
+        {/* Arrow Kiri - menempel tepi kiri */}
         <button
           onClick={prevSlide}
           className="absolute left-4 w-[32px] h-[32px] rounded-full bg-[#E2E2E2] flex items-center justify-center hover:bg-[#D0D0D0] transition-colors"
@@ -186,6 +187,7 @@ export default function AboutUs() {
           </svg>
         </button>
 
+        {/* Progress Bar - di tengah */}
         <div className="w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px] h-[8px] bg-[#E5E5E5] rounded-full overflow-hidden flex gap-[2px]">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
@@ -200,6 +202,7 @@ export default function AboutUs() {
           ))}
         </div>
 
+        {/* Arrow Kanan - menempel tepi kanan */}
         <button
           onClick={nextSlide}
           className="absolute right-4 w-[32px] h-[32px] rounded-full bg-[#E2E2E2] flex items-center justify-center hover:bg-[#D0D0D0] transition-colors"
@@ -231,7 +234,7 @@ export default function AboutUs() {
       <img
         src={vectorBot}
         alt="Vector Bottom"
-        className="absolute bottom-[100px] lg:bottom-[80px] right-[-6px] w-[120px] sm:w-[140px] lg:w-[280px] xl:w-[320px] h-auto select-none pointer-events-none"
+        className="absolute bottom-[20px] lg:bottom-[80px] right-[-6px] w-[120px] sm:w-[140px] lg:w-[280px] xl:w-[320px] h-auto select-none pointer-events-none"
         draggable="false"
       />
     </section>
