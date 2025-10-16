@@ -1,8 +1,10 @@
 // src/components/sections/Layanan.jsx
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 // === Import aset (desktop) ===
 import bgFull from "../../assets/images/layanan/bg-layanan-full.png";
+import bgMobile from "../../assets/images/layanan/bg-layanan-mobile.png";
 import img1 from "../../assets/images/layanan/layanan_1.png";
 import img2 from "../../assets/images/layanan/layanan_2.png";
 import img3 from "../../assets/images/layanan/layanan_3.png";
@@ -64,142 +66,128 @@ function Chip({ children }) {
 }
 
 export default function Layanan() {
+  const [bgImage, setBgImage] = useState(bgFull);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 640) {
+        setBgImage(bgMobile);
+      } else {
+        setBgImage(bgFull);
+      }
+    };
+
+    handleResize(); // jalankan sekali saat mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section
       className="relative"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.35)), url(${bgFull})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.35)), url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 py-12 min-[992px]:py-20">
         {/* Header */}
-        <div className="text-center mb-8 min-[992px]:mb-14">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Bidang Usaha
-          </h2>
+        <div className="text-center mb-8 min-[320px]:mt-7 min-[992px]:mt-4 min-[992px]:mb-10 md:mt-10">
+          <div className="relative inline-block">
+            {/* Teks bayangan (hitam di belakang) */}
+            <h2 className="absolute top-[3px] text-2xl sm:text-3xl font-extrabold text-black transform -skew-x-1">
+              Bidang Usaha
+            </h2>
+            {/* Teks utama (putih di depan) */}
+            <h2 className="relative text-2xl sm:text-3xl font-extrabold text-white">
+              Bidang Usaha
+            </h2>
+          </div>
+          <div className="mx-auto mt-4 mb-4 h-[3px] w-16  bg-white"></div>
           <p className="mt-2 text-white/80 max-w-2xl mx-auto">
-            Kami Menyediakan Solusi Konstruksi Lengkap Dengan Kualitas Terbaik
-            Dan Layanan Profesional
+            {/* Versi untuk layar >400px */}
+            <span className="hidden min-[401px]:block">
+              Kami Menyediakan Solusi Konstruksi Lengkap Dengan Kualitas
+              <br />
+              Terbaik Dan Layanan Profesional
+            </span>
+
+            {/* Versi untuk layar <=400px */}
+            <span className="block min-[401px]:hidden">
+              Kami Menyediakan Solusi Konstruksi Lengkap
+              <br />
+              Dengan Kualitas Terbaik Dan Layanan Profesional
+            </span>
           </p>
-        </div>
 
-        {/* Cards */}
-        <div className="space-y-10 min-[992px]:space-y-16">
-          {SERVICES.map((s, idx) => {
-            const zigRight = idx % 2 === 1; // baris 2 gambar di kanan
-            return (
-              <article
-                key={s.id}
-                className="grid gap-5 min-[992px]:grid-cols-12 min-[992px]:items-center"
-              >
-                {/* IMG */}
-                <div
-                  className={[
-                    "relative min-[992px]:col-span-6",
-                    zigRight ? "min-[992px]:order-3" : "min-[992px]:order-1",
-                  ].join(" ")}
-                >
-                  <div>
-                    <picture>
-                      <source
-                        media="(min-width: 992px)"
-                        srcSet={s.img.desktop}
-                      />
-                      <img
-                        src={s.img.mobile}
-                        alt={s.img.alt}
-                        className="h-[190px] sm:h-[240px] min-[992px]:h-[280px] object-cover"
-                        loading="lazy"
-                      />
-                    </picture>
-                  </div>
+          {/* Konten 3 row × 2 kolom */}
+          <div className="mt-8 grid grid-cols-12 gap-6">
+            {/* === Baris 1 === */}
+            <div className="col-span-12 xl:col-span-4 xl:[margin-left:calc((100vw-1200px)/-1)] ">
+              <img
+                src={img1}
+                alt="Kontraktor Umum"
+                className="w-full h-auto rounded-xl object-cover"
+              />
+            </div>
+            {/* pertahankan proporsi desktop seperti kode kamu (6/12) */}
+            <div className="col-span-12 xl:col-span-8 flex flex-col justify-center xl:pl-8">
+              <h3 className="text-white text-lg sm:text-xl font-extrabold tracking-wide uppercase text-left">
+                KONTRAKTOR UMUM
+              </h3>
 
-                  {/* Icon bulat merah menempel di tepi antara gambar & teks */}
-                  <div
-                    className={[
-                      "hidden min-[992px]:flex absolute top-1/2 -translate-y-1/2 z-10",
-                      zigRight ? "-left-9" : "-right-9",
-                    ].join(" ")}
-                    aria-hidden
-                  >
-                    <picture>
-                      <source
-                        media="(min-width: 992px)"
-                        srcSet={s.icon.desktop}
-                      />
-                      <img
-                        src={s.icon.mobile}
-                        alt={s.icon.alt}
-                        className="h-14 w-14"
-                      />
-                    </picture>
-                  </div>
-                </div>
+              {/* Bubble deskripsi (punya background) */}
+              <div className="mt-3 inline-block max-w-[760px] rounded-2xl bg-white/10 px-6 py-4 text-white/80 text-left">
+                Menyediakan persiapan lahan, pembangunan saluran air, pekerjaan
+                kolam detensi, pekerjaan galian tanah, serta
+                pembangunan/pembuatan jalan.
+              </div>
+            </div>
 
-                {/* TEXT: Judul di luar card + card konten */}
-                <div
-                  className={[
-                    "min-[992px]:col-span-6",
-                    zigRight ? "min-[992px]:order-1" : "min-[992px]:order-2",
-                  ].join(" ")}
-                >
-                  {/* === Judul di luar kotak abu-abu === */}
-                  <div className="mb-3 sm:mb-4">
-                    <h3
-                      className={`text-base sm:text-lg font-extrabold tracking-wide text-white ${
-                        zigRight ? "text-right" : ""
-                      }`}
-                    >
-                      {s.title}
-                    </h3>
+            {/* === Baris 2 === */}
+            {/* di mobile: tampilkan gambar dulu → order-1; di xl kembali normal */}
+            <div className="col-span-12 xl:col-span-8 flex flex-col justify-center xl:pl-8">
+              <h3 className="text-white text-lg sm:text-xl font-extrabold tracking-wide uppercase text-right">
+                SUPPLIER BAHAN ALAM
+              </h3>
+              <div className="mt-3 inline-block max-w-[760px] rounded-2xl bg-white/10 px-6 py-4 text-white/80 text-justify">
+                Menyediakan berbagai material konstruksi berbasis sumber daya
+                alam dengan kualitas terjamin untuk mendukung kelancaran proyek
+                pembangunan.
+              </div>
+            </div>
+            <div className="col-span-12 xl:col-span-4 xl:[margin-right:calc((100vw-1175px)/-2)]">
+              <img
+                src={img2}
+                alt="Kontraktor Umum"
+                className="w-full h-auto rounded-xl object-cover"
+              />
+            </div>
 
-                  </div>
+            {/* === Baris 3 === */}
+            <div className="col-span-12 xl:col-span-4 xl:[margin-left:calc((100vw-1200px)/-1)]">
+              <img
+                src={img3}
+                alt="Kontraktor Umum"
+                className="w-full h-auto rounded-xl object-cover"
+              />
+            </div>
+            <div className="col-span-12 xl:col-span-8 flex flex-col justify-center xl:pl-8">
+              <h3 className="text-white text-lg sm:text-xl font-extrabold tracking-wide uppercase text-left">
+                HEAVY EQUIPMENT RENTAL
+              </h3>
 
-                  {/* === Kotak abu-abu (tanpa judul di dalamnya) === */}
-                  <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-md p-4 sm:p-5 text-white shadow-[0_8px_30px_rgba(0,0,0,.25)]">
-                    <p className="text-sm sm:text-[15px] text-white/85">
-                      {s.desc}
-                    </p>
-
-                    {/* Chips */}
-                    {s.chips?.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {s.chips.map((c) => (
-                          <Chip key={c}>{c}</Chip>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* CTA (opsional) */}
-                    {s.cta && (
-                      <div className="mt-4">
-                        <Link
-                          to={s.cta.to}
-                          className="inline-flex items-center rounded-full bg-[#A20000] px-4 py-2 text-xs font-bold text-white hover:bg-[#8C0000] transition"
-                        >
-                          {s.cta.label}
-                          <svg
-                            className="ml-2 h-4 w-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M5 12h14" />
-                            <path d="M12 5l7 7-7 7" />
-                          </svg>
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+              {/* Bubble deskripsi (punya background) */}
+              <div className="mt-3 inline-block max-w-[760px] rounded-2xl bg-white/10 px-6 py-4 text-white/80 text-justify">
+                Kami menyediakan layanan penyewaan alat berat yang handal dan
+                terawat untuk mendukung kelancaran proyek konstruksi maupun
+                infrastruktur. Dengan armada yang lengkap, harga kompetitif,
+                serta pelayanan yang profesional, kami siap menjadi mitra
+                terpercaya bagi setiap kebutuhan proyek Anda.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
