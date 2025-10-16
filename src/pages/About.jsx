@@ -1,6 +1,7 @@
 import React from "react";
 import AboutUs from "../sections/about/AboutUs";
 import CompanyProfile from "../sections/about/CompanyProfile";
+import WhyChooseUs from "../sections/about/WhyChooseUs";
 
 export default function AboutPage() {
   return (
@@ -14,6 +15,9 @@ export default function AboutPage() {
 
         {/* Section 2: CompanyProfile - CV Yudha Pratama dengan team photo */}
         <CompanyProfile />
+
+        {/* Section 3: WhyChooseUs - Keunggulan perusahaan dengan background merah */}
+        <WhyChooseUs />
       </main>
     </>
   );
