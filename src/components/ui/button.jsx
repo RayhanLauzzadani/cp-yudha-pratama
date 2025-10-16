@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { cn } from "../../lib/utils";
 
 export const Button = React.forwardRef(
@@ -6,7 +7,7 @@ export const Button = React.forwardRef(
     { className, variant = "default", size = "default", asChild = false, ...props },
     ref
   ) => {
-    const Comp = asChild ? "span" : "button";
+    const Comp = asChild ? Slot : "button";
     const base =
       "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none";
 
