@@ -1,5 +1,6 @@
 // src/sections/About.jsx
 import { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import teamPhoto from "../assets/images/team-photo.png";
 
 const DURATION_STAGE1 = 650; // pink moveShrink & grayMoveMorphStage1
@@ -15,9 +16,13 @@ const DURATION_GROW_BEHIND = 600;
 const EASE_STAGE1 = "cubic-bezier(0.22,0.61,0.36,1)";
 const EASE_RETURN = "cubic-bezier(0.25,0.8,0.25,1)";
 const EASE_GROW = "cubic-bezier(0.22,0.7,0.2,1)";
-
-// === Abu-abu (pilar) ===
-const PILLAR_TARGET_PX = 20;   // final lebar pilar 20px
+          <Link
+            to="/about"
+            role="button"
+            className="inline-block mt-6 px-6 py-2 sm:px-8 sm:py-3 border border-[#A20000] rounded-full text-[#A20000] text-[11px] sm:text-base font-semibold tracking-wide hover:bg-[#A20000] hover:text-white transition-all duration-300 ease-out"
+          >
+            BACA LEBIH LANJUT
+          </Link>
 const PILLAR_MARGIN_L  = 10;   // jarak dari sisi kiri deskripsi
 const EXTRA_SWEEP_PX   = 10;   // selimut: lebar deskripsi + 10px
 const THICKEN_SHRINK_PX = 20;  // tinggi dikurangi 20px saat tiba (napas awal)

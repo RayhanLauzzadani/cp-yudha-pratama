@@ -14,8 +14,9 @@ const NAV_ITEMS = [
   { id: "home", label: "BERANDA", type: "route", to: "/" },
   { id: "about", label: "TENTANG KAMI", type: "route", to: "/about" },
   { id: "services", label: "LAYANAN", type: "route", to: "/services" },
-  { id: "projects", label: "PROYEK", type: "hash", to: "#projects" },
-  { id: "gallery", label: "GALERI", type: "hash", to: "#gallery" },
+  // gunakan absolute hash agar selalu ke beranda section meski dari /about, /services, dll
+  { id: "projects", label: "PROYEK", type: "hash", to: "/#projects" },
+  { id: "gallery", label: "GALERI", type: "hash", to: "/#gallery" },
 ];
 
 const COMPANY_PROFILE_URL = "/company-profile.pdf";
@@ -85,7 +86,7 @@ export default function Navbar() {
       cancelAnimationFrame(r1);
       window.removeEventListener("resize", onResize);
     };
-  }, [activeId]);
+  }, [activeId, updateIndicator]);
 
   // Tutup panel mobile tiap klik menu
   const closeMobile = () => setMobileOpen(false);
@@ -105,7 +106,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur border-b ${
+      className={`fixed inset-x-0 top-0 z-[1000] bg-white/95 backdrop-blur border-b ${
         scrolled ? "shadow-sm" : ""
       }`}
     >

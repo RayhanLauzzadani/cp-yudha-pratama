@@ -1,6 +1,6 @@
 // src/sections/home/AboutClean.jsx
 import { useRef, useState, useEffect, useCallback } from "react";
-import PartnersClients from "./PartnersClients";
+import PartnersClients from "../home/PartnersClients";
 import teamPhoto from "../../assets/images/team-photo.png";
 import logoMark from "../../assets/brand/logo-mark.svg";
 import vectorTop from "../../assets/icons/vector_top.png";
@@ -81,44 +81,44 @@ export default function AboutClean() {
   return (
     <>
       {/* CAROUSEL */}
-      <section className="relative w-full bg-white h-screen min-h-[525px] font-jakarta overflow-hidden flex items-center justify-center">
+  <section id="sejarah" className="relative w-full bg-white md:h-screen h-auto min-h-[560px] font-jakarta overflow-visible md:overflow-hidden flex items-center justify-center scroll-mt-20 pt-4 sm:pt-6 md:pt-0">
         <div className="absolute inset-y-0 left-0 w-[320px] sm:w-[360px] md:w-[400px] opacity-30 pointer-events-none flex items-stretch">
           <img src={vectorTop} alt="" className="w-full h-full object-cover object-left" aria-hidden="true" />
         </div>
         <div className="absolute inset-y-0 right-0 w-[320px] sm:w-[360px] md:w-[400px] opacity-30 pointer-events-none flex items-stretch">
           <img src={vectorBot} alt="" className="w-full h-full object-cover object-right" aria-hidden="true" />
         </div>
-        <div ref={containerRef} className="relative w-full h-full">
-          <div className="flex h-full transition-transform duration-700 ease-in-out transform-gpu will-change-transform" style={{ transform: `translateX(-${currentSlide * containerWidth}px)` }}>
+        <div ref={containerRef} className="relative w-full md:h-full h-auto pb-16 sm:pb-0">
+          <div className="flex md:h-full h-auto transition-transform duration-700 ease-in-out transform-gpu will-change-transform" style={{ transform: `translateX(-${currentSlide * containerWidth}px)` }}>
             {/* Slide 1 */}
-            <div className="min-w-full flex-shrink-0 relative h-full flex items-center justify-center overflow-hidden">
-              <div className="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col items-center justify-center gap-0 px-6">
-                <div className="flex flex-col items-center justify-end h-[260px] md:h-[300px]">
-                  <img src={logoMark} alt="Logo Yudha Pratama" className="w-[120px] sm:w-[140px] md:w-[160px] h-auto object-contain mb-2 sm:mb-3" />
-                  <h2 className="text-[42px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-extrabold leading-tight text-[#383737]">SEJARAH</h2>
+            <div className="min-w-full flex-shrink-0 relative md:h-full h-auto flex items-start justify-center overflow-visible md:overflow-hidden pt-14 md:pt-16 lg:pt-16">
+              <div className="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col items-center justify-start gap-0 px-6">
+                <div className="flex flex-col items-center justify-end h-[160px] sm:h-[200px] md:h-[220px]">
+                  <img src={logoMark} alt="Logo Yudha Pratama" className="w-[90px] sm:w-[120px] md:w-[160px] h-auto object-contain mb-2 sm:mb-3" />
+                  <h2 className="text-[34px] sm:text-[48px] md:text-[68px] lg:text-[76px] font-extrabold leading-tight text-[#383737]">SEJARAH</h2>
                 </div>
-                <div className="w-full relative mt-0 mb-6 h-12">
-                  <div className="absolute left-1/2 -translate-x-1/2 w-screen top-1/2 -translate-y-1/2 h-[4px] bg-[#A20000]" />
+                <div className="w-full relative mt-0 mb-4 sm:mb-6 h-10 sm:h-12 overflow-hidden">
+                  <div className="absolute left-1/2 -translate-x-1/2 w-full top-1/2 -translate-y-1/2 h-[4px] bg-[#A20000]" />
                   <div className="relative flex justify-center items-center h-full">
-                    <h3 className="bg-white px-8 text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-extrabold tracking-wide text-[#A20000]">CV. YUDHA PRATAMA</h3>
+                    <h3 className="bg-white px-6 sm:px-8 text-[18px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-extrabold tracking-wide text-[#A20000]">CV. YUDHA PRATAMA</h3>
                   </div>
                 </div>
-                <div className="bg-white border border-gray-300 rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 max-w-[900px] sm:max-w-[1000px] w-full">
-                  <p className="text-[14px] sm:text-[16px] md:text-[17px] lg:text-[18px] leading-relaxed text-[#383737]/90 text-center">CV. Yudha Pratama Merupakan Hasil Pengembangan Dari Perusahaan Sebelumnya, Mitra Keluarga Sejahtera (MKS), Yang Berdiri Sejak Tahun 2008. Seiring Dengan Perluasan Ruang Lingkup Usaha Dan Peningkatan Kebutuhan Mitra, Perusahaan Kemudian Melakukan Pergantian Nama Menjadi CV. Yudha Pratama Pada Tanggal 30 April 2009, Yang Resmi Berdomisili Di Kelapadua Tugu, Cimanggis, Depok.</p>
+                <div className="bg-white border border-gray-300 rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-8 md:p-10 max-w-[900px] sm:max-w-[1000px] w-full mt-2 sm:mt-3">
+                  <p className="text-[13px] sm:text-[16px] md:text-[17px] lg:text-[18px] leading-relaxed text-[#383737]/90 text-center">CV. Yudha Pratama Merupakan Hasil Pengembangan Dari Perusahaan Sebelumnya, Mitra Keluarga Sejahtera (MKS), Yang Berdiri Sejak Tahun 2008. Seiring Dengan Perluasan Ruang Lingkup Usaha Dan Peningkatan Kebutuhan Mitra, Perusahaan Kemudian Melakukan Pergantian Nama Menjadi CV. Yudha Pratama Pada Tanggal 30 April 2009, Yang Resmi Berdomisili Di Kelapadua Tugu, Cimanggis, Depok.</p>
                 </div>
               </div>
             </div>
             {/* Slide 2 */}
-            <div className="min-w-full flex-shrink-0 relative h-full flex items-center justify-center overflow-hidden">
-              <div className="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col items-center justify-center gap-0 px-6">
-                <div className="flex flex-col items-center justify-end h-[260px] md:h-[300px]">
-                  <img src={logoMark} alt="Logo Yudha Pratama" className="w-[120px] sm:w-[140px] md:w-[160px] h-auto object-contain mb-2 sm:mb-3" />
-                  <h2 className="text-[42px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-extrabold leading-tight text-[#383737]">VISI & MISI</h2>
+            <div className="min-w-full flex-shrink-0 relative md:h-full h-auto flex items-start justify-center overflow-visible md:overflow-hidden pt-14 md:pt-16 lg:pt-16">
+              <div className="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col items-center justify-start gap-0 px-6">
+                <div className="flex flex-col items-center justify-end h-[160px] sm:h-[200px] md:h-[220px]">
+                  <img src={logoMark} alt="Logo Yudha Pratama" className="w-[90px] sm:w-[120px] md:w-[160px] h-auto object-contain mb-2 sm:mb-3" />
+                  <h2 className="text-[34px] sm:text-[48px] md:text-[68px] lg:text-[76px] font-extrabold leading-tight text-[#383737]">VISI & MISI</h2>
                 </div>
-                <div className="w-full relative mt-0 mb-6 h-12">
-                  <div className="absolute left-1/2 -translate-x-1/2 w-screen top-1/2 -translate-y-1/2 h-[4px] bg-[#A20000]" />
+                <div className="w-full relative mt-0 mb-4 sm:mb-6 h-10 sm:h-12 overflow-hidden">
+                  <div className="absolute left-1/2 -translate-x-1/2 w-full top-1/2 -translate-y-1/2 h-[4px] bg-[#A20000]" />
                   <div className="relative flex justify-center items-center h-full">
-                    <h3 className="bg-white px-8 text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-extrabold tracking-wide text-[#A20000]">CV. YUDHA PRATAMA</h3>
+                    <h3 className="bg-white px-6 sm:px-8 text-[18px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-extrabold tracking-wide text-[#A20000]">CV. YUDHA PRATAMA</h3>
                   </div>
                 </div>
                 <div className="bg-white border border-gray-300 rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 max-w-[900px] w-full">
@@ -136,16 +136,16 @@ export default function AboutClean() {
               </div>
             </div>
             {/* Slide 3 */}
-            <div className="min-w-full flex-shrink-0 relative h-full flex items-center justify-center overflow-hidden">
-              <div className="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col items-center justify-center gap-0 px-6">
-                <div className="flex flex-col items-center justify-end h-[260px] md:h-[300px]">
-                  <img src={logoMark} alt="Logo Yudha Pratama" className="w-[120px] sm:w-[140px] md:w-[160px] h-auto object-contain mb-2 sm:mb-3" />
-                  <h2 className="text-[42px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-extrabold leading-tight text-[#383737]">BUDAYA</h2>
+            <div className="min-w-full flex-shrink-0 relative md:h-full h-auto flex items-start justify-center overflow-visible md:overflow-hidden pt-14 md:pt-16 lg:pt-16">
+              <div className="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col items-center justify-start gap-0 px-6">
+                <div className="flex flex-col items-center justify-end h-[160px] sm:h-[200px] md:h-[220px]">
+                  <img src={logoMark} alt="Logo Yudha Pratama" className="w-[90px] sm:w-[120px] md:w-[160px] h-auto object-contain mb-2 sm:mb-3" />
+                  <h2 className="text-[34px] sm:text-[48px] md:text-[68px] lg:text-[76px] font-extrabold leading-tight text-[#383737]">BUDAYA</h2>
                 </div>
-                <div className="w-full relative mt-0 mb-6 h-12">
-                  <div className="absolute left-1/2 -translate-x-1/2 w-screen top-1/2 -translate-y-1/2 h-[4px] bg-[#A20000]" />
+                <div className="w-full relative mt-0 mb-4 sm:mb-6 h-10 sm:h-12 overflow-hidden">
+                  <div className="absolute left-1/2 -translate-x-1/2 w-full top-1/2 -translate-y-1/2 h-[4px] bg-[#A20000]" />
                   <div className="relative flex justify-center items-center h-full">
-                    <h3 className="bg-white px-8 text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-extrabold tracking-wide text-[#A20000]">CV. YUDHA PRATAMA</h3>
+                    <h3 className="bg-white px-6 sm:px-8 text-[18px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-extrabold tracking-wide text-[#A20000]">CV. YUDHA PRATAMA</h3>
                   </div>
                 </div>
                 <div className="bg-white border border-gray-300 rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 max-w-[900px] w-full">
@@ -164,14 +164,14 @@ export default function AboutClean() {
             </div>
           </div>
           {/* arrows */}
-          <button onClick={prevSlide} className="absolute left-6 top-1/2 -translate-y-1/2 z-50 bg-white/90 hover:bg-white p-4 rounded-full shadow-xl transition-all duration-300 group" aria-label="Slide sebelumnya">
-            <svg className="w-7 h-7 text-[#A20000] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          <button onClick={prevSlide} className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white p-3 sm:p-4 rounded-full shadow-xl transition-all duration-300 group" aria-label="Slide sebelumnya">
+            <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#A20000] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           </button>
-          <button onClick={nextSlide} className="absolute right-6 top-1/2 -translate-y-1/2 z-50 bg-white/90 hover:bg-white p-4 rounded-full shadow-xl transition-all duration-300 group" aria-label="Slide berikutnya">
-            <svg className="w-7 h-7 text-[#A20000] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          <button onClick={nextSlide} className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white p-3 sm:p-4 rounded-full shadow-xl transition-all duration-300 group" aria-label="Slide berikutnya">
+            <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#A20000] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
           {/* progress */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 w-full max-w-[520px] px-6 pointer-events-none">
+          <div className="absolute bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 w-full max-w-[520px] px-4 sm:px-6 pointer-events-none">
             <div className="relative h-[14px] w-full rounded-full bg-[#E5E5E5] overflow-hidden">
               {Array.from({ length: totalSlides }).map((_, i) => (
                 <div key={`sep-${i}`} className="absolute top-0 h-full border-r border-white/40" style={{ left: `${(i * 100) / totalSlides}%`, width: `${100 / totalSlides}%` }} />
@@ -250,14 +250,36 @@ export default function AboutClean() {
   <PartnersClients />
 
       {/* Floating Buttons */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="bg-[#383737] hover:bg-[#2a2a2a] text-white p-4 rounded-full shadow-lg transition-all duration-300 group flex items-center justify-center" aria-label="Scroll to top">
-          <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+  <div className="fixed bottom-6 right-4 sm:right-6 z-50 flex flex-row items-center gap-2 sm:gap-3">
+        {/* Hubungi Kami - now white with gray border, on the left */}
+        <div className="relative group">
+          {/* Tooltip */}
+          <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black text-white text-[10px] font-semibold opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none transition-opacity select-none">
+            ADMIN
+          </div>
+          <a
+            href="https://wa.me/6281234567890"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white border border-neutral-300 hover:border-neutral-400 text-[#383737] hover:bg-neutral-50 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full shadow-md transition-all duration-300 flex items-center gap-2"
+            aria-label="Hubungi kami via WhatsApp"
+          >
+            {/* Phone icon (black) */}
+            <svg className="w-5 h-5 text-black" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path fillRule="evenodd" clipRule="evenodd" d="M1.5 4.5a1.5 1.5 0 012.121-1.342l3.029 1.514a1.5 1.5 0 01.8.86l.929 2.23c.192.463.087 1.004-.273 1.364l-.759.759a12.75 12.75 0 006.364 6.364l.759-.759c.36-.36.901-.465 1.364-.273l2.23.93c.365.152.651.438.803.803l1.514 3.029A1.5 1.5 0 0119.5 22.5h-1.125c-8.284 0-15-6.716-15-15V6A1.5 1.5 0 011.5 4.5z" />
+            </svg>
+            <span className="text-xs sm:text-sm font-semibold whitespace-nowrap">HUBUNGI KAMI</span>
+          </a>
+        </div>
+
+        {/* Scroll to Top - rounded rectangle on the right */}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="bg-[#383737] hover:bg-[#2a2a2a] text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl shadow-lg transition-all duration-300 group flex items-center justify-center"
+          aria-label="Scroll to top"
+        >
+          <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
         </button>
-        <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" className="bg-[#25D366] hover:bg-[#20BA5A] text-white px-5 py-4 rounded-full shadow-lg transition-all duration-300 flex items-center gap-2">
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
-          <span className="text-sm font-bold whitespace-nowrap">HUBUNGI KAMI</span>
-        </a>
       </div>
     </>
   );
