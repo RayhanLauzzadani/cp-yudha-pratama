@@ -74,7 +74,7 @@ export default function AboutUs() {
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-white overflow-hidden flex flex-col items-center md:pb-6">
+    <section className="relative w-full bg-white overflow-hidden flex flex-col items-center pb-0">
       {/* Vector atas kiri */}
       <img
         src={vectorTop}
@@ -176,7 +176,7 @@ export default function AboutUs() {
       </div>
 
       {/* Mobile Carousel Controls - Arrow menempel tepi, progress bar di tengah */}
-      <div className="lg:hidden relative mt-[18px] w-full flex items-center justify-center z-20">
+      <div className="lg:hidden relative mt-[18px] w-full flex items-center justify-center z-20 mb-[16px]">
         {/* Arrow Kiri - menempel tepi kiri */}
         <button
           onClick={prevSlide}
@@ -214,7 +214,7 @@ export default function AboutUs() {
       </div>
 
       {/* Desktop Progress Bar */}
-      <div className="hidden lg:flex mt-[32px] xl:mt-[40px] w-full justify-center z-20">
+      <div className="hidden lg:flex mt-[32px] xl:mt-[40px] w-full justify-center z-20 mb-[16px]">
         <div className="w-full max-w-[320px] xl:max-w-[380px] h-[10px] xl:h-[12px] bg-[#E5E5E5] rounded-full overflow-hidden flex gap-[3px]">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
@@ -234,7 +234,7 @@ export default function AboutUs() {
       <img
         src={vectorBot}
         alt="Vector Bottom"
-        className="absolute bottom-[20px] lg:bottom-[80px] right-[-6px] w-[120px] sm:w-[140px] lg:w-[280px] xl:w-[320px] h-auto select-none pointer-events-none"
+        className="absolute bottom-0 right-[-6px] w-[120px] sm:w-[140px] lg:w-[280px] xl:w-[320px] h-auto select-none pointer-events-none"
         draggable="false"
       />
     </section>
