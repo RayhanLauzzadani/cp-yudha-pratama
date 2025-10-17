@@ -10,7 +10,7 @@ import truckIcon from "../../assets/icons/truck.svg";
 
 export default function Services() {
   return (
-    <section className="relative w-full min-h-screen">
+    <section className="relative w-full">
       {/* Background Image - Mobile & SM (< 768px) */}
       <div
         className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -34,7 +34,7 @@ export default function Services() {
       />
 
       {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center text-center pt-5 lg:pt-[11px] px-4">
+      <div className="relative z-10 flex flex-col items-center text-center pt-5 lg:pt-[11px] px-4 pb-0">
         {/* Title "BIDANG USAHA" */}
         <h2
           className="text-[#FAFAFA] text-[30px] sm:text-[36px] md:text-[42px] lg:text-[40px] font-extrabold"
@@ -58,62 +58,29 @@ export default function Services() {
           Layanan Profesional
         </p>
 
-        {/* Global Style untuk semua cards */}
-        <style>{`
-          /* 320px – 375px */
-          @media (min-width: 320px) and (max-width: 327px) {
-            .services-tags { margin-top: 90px !important; }
-          }
-            @media (min-width: 327px) and (max-width: 375px) {
-            .services-tags { margin-top: 70px !important; }
-          }
-          /* 376px – 392px */
-          @media (min-width: 376px) and (max-width: 392px) {
-            .services-tags { margin-top: 55px !important; }
-          }
-          /* 393px – 498px */
-          @media (min-width: 393px) and (max-width: 498px) {
-            .services-tags { margin-top: 40px !important; }
-          }
-          /* 499px – 767px */
-          @media (min-width: 499px) and (max-width: 767px) {
-            .services-tags { margin-top: 15px !important; }
-          }
-          /* 768px – 785px */
-          @media (min-width: 768px) and (max-width: 785px) {
-            .services-tags { margin-top: 105px !important; }
-          }
-          /* 786px – 918px */
-          @media (min-width: 786px) and (max-width: 918px) {
-            .services-tags { margin-top: 100px !important; }
-          }
-          /* 919px – 1023px */
-          @media (min-width: 919px) and (max-width: 1023px) {
-            .services-tags { margin-top: 55px !important; }
-          }
-        `}</style>
-
         {/* Card Section - 3 Cards Grid */}
         <div
           className="
             mx-auto max-w-[1400px] w-full px-5 sm:px-6 lg:px-8 relative z-10
-            mt-12 pb-[70px]
+            mt-12 pb-4 sm:pb-9 md:pb-9 lg:pb-6 xl:pb-6
           "
         >
-          {/* Grid Container - 1 column mobile, 3 columns desktop */}
+          {/* Grid Container - 1 column mobile, 3 columns desktop - EQUAL HEIGHT */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-            {/* CARD 1: KONTRAKTOR UMUM */}
-            <div className="flex">
+            
+            {/* ========== CARD 1: KONTRAKTOR UMUM ========== */}
+            <div className="flex h-full">
               <div
                 className="bg-white rounded-[20px] shadow-lg overflow-hidden border border-black/[0.04] hover:shadow-xl transition-shadow w-full flex flex-col"
                 style={{ border: "2px solid #DFDFDF" }}
               >
-                {/* === HEADER (gambar + gradient) === */}
+                {/* === HEADER (gambar + gradient) - DYNAMIC HEIGHT === */}
                 <div
                   className="
                   relative
-                  h-[240px] sm:h-[250px] md:h-[260px] lg:h-[280px] xl:h-[300px]
+                  min-h-[300px] sm:min-h-[320px] md:min-h-[340px] lg:min-h-[360px] xl:min-h-[380px]
                   bg-cover bg-center
+                  flex items-end pb-6
                 "
                   style={{
                     backgroundImage: `
@@ -127,20 +94,18 @@ export default function Services() {
                   `,
                   }}
                 >
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-white z-10" />
-
-                  {/* Lingkaran merah */}
+                  {/* Lingkaran merah - ADJUSTED SIZE & POSITION */}
                   <div
                     className="
-                    absolute left-1/2
-                    -translate-x-1/2 -translate-y-1/2
-                    top-[30%] sm:top-[40%] md:top-[38%] lg:top-[30%]
-                    w-[72px] h-[72px]
-                    sm:w-[80px] sm:h-[80px]
+                    absolute left-1/2 -translate-x-1/2
+                    top-[18%] sm:top-[20%] md:top-[10%] lg:top-[24%]
+                    w-[80px] h-[80px]
+                    sm:w-[88px] sm:h-[88px]
                     md:w-[88px] md:h-[88px]
-                    lg:w-[96px] lg:h-[96px]
+                    lg:w-[104px] lg:h-[104px]
+                    xl:w-[112px] xl:h-[112px]
                     rounded-full bg-[#A20000]
-                    flex items-center justify-center shadow-md
+                    flex items-center justify-center shadow-lg
                     z-30
                   "
                   >
@@ -148,56 +113,43 @@ export default function Services() {
                       src={buildingIcon}
                       alt="Ikon bangunan"
                       className="
-                      w-[28px] h-[28px]
-                      sm:w-[32px] sm:h-[32px]
-                      md:w-[36px] md:h-[36px]
-                      lg:w-[40px] lg:h-[40px]
+                      w-[32px] h-[32px]
+                      sm:w-[36px] sm:h-[36px]
+                      md:w-[40px] md:h-[40px]
+                      lg:w-[44px] lg:h-[44px]
+                      xl:w-[48px] xl:h-[48px]
                       filter invert brightness-0
                     "
                     />
                   </div>
 
-                  {/* Judul + deskripsi di bawah lingkaran */}
-                  <div
-                    className="
-                    absolute left-1/2 -translate-x-1/2 text-center w-full px-6
-                    z-40
-                  "
-                    style={{
-                      top: "calc(42% + 42px)", // anchor teks dari lingkaran
-                    }}
-                  >
+                  {/* Judul + deskripsi - RELATIVE FLOW */}
+                  <div className="w-full px-6 text-center relative z-40 mt-auto pt-[80px] sm:pt-[90px]">
                     <h3
                       className="text-[#383737] font-extrabold tracking-tight"
                       style={{
                         fontFamily: "'Plus Jakarta Sans', sans-serif",
-                        fontSize: "clamp(18px, 1.6vw, 20px)",
+                        fontSize: "clamp(17px, 1.6vw, 20px)",
                         lineHeight: "1.3",
                       }}
                     >
                       KONTRAKTOR UMUM
                     </h3>
                     <p
-                      className="text-[#383737]/85 leading-relaxed mx-auto mt-[18px]"
+                      className="text-[#383737]/85 leading-[1.4] mx-auto mt-3"
                       style={{
-                        fontSize: "clamp(14px, 1.1vw, 15px)",
-                        maxWidth: "min(92%, 460px)",
+                        fontSize: "clamp(13px, 1.1vw, 15px)",
+                        maxWidth: "min(95%, 460px)",
                       }}
                     >
-                      Melayani Pekerjaan Galian Tanah, Pekerjaan Taman, Kolam
-                      Ditensi, Dan Saluran Air Dengan Standar Kualitas Tinggi
+                      Melayani Pekerjaan Galian Tanah, Pekerjaan Taman, Kolam Ditensi, Pembuatan Jalan, Pekerjaan Timbunan, Dan Saluran Air Dengan Standar Kualitas Tinggi
                     </p>
                   </div>
                 </div>
 
                 {/* === BODY (tags) === */}
-                <div className="px-6 pb-7 text-center">
-                  <div
-                    className="services-tags flex flex-wrap justify-center gap-x-[5px] gap-y-[9px] max-w-full"
-                    style={{
-                      marginTop: "24px",
-                    }}
-                  >
+                <div className="px-6 pb-7 pt-6 text-center">
+                  <div className="flex flex-wrap justify-center gap-x-[5px] gap-y-[9px] max-w-full">
                     <span
                       className="
                       px-[9px] py-[3px]
@@ -275,18 +227,19 @@ export default function Services() {
               </div>
             </div>
 
-            {/* CARD 2: SUPPLIER MATERIAL ALAM */}
-            <div className="flex">
+            {/* ========== CARD 2: SUPPLIER MATERIAL ALAM ========== */}
+            <div className="flex h-full">
               <div
                 className="bg-white rounded-[20px] shadow-lg overflow-hidden border border-black/[0.04] hover:shadow-xl transition-shadow w-full flex flex-col"
                 style={{ border: "2px solid #DFDFDF" }}
               >
-                {/* === HEADER (gambar + gradient) === */}
+                {/* === HEADER (gambar + gradient) - DYNAMIC HEIGHT === */}
                 <div
                   className="
                   relative
-                  h-[240px] sm:h-[250px] md:h-[260px] lg:h-[280px] xl:h-[300px]
+                  min-h-[300px] sm:min-h-[320px] md:min-h-[340px] lg:min-h-[360px] xl:min-h-[380px]
                   bg-cover bg-center
+                  flex items-end pb-6
                 "
                   style={{
                     backgroundImage: `
@@ -300,20 +253,18 @@ export default function Services() {
                   `,
                   }}
                 >
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-white z-10" />
-
-                  {/* Lingkaran merah */}
+                  {/* Lingkaran merah - ADJUSTED SIZE & POSITION */}
                   <div
                     className="
-                    absolute left-1/2
-                    -translate-x-1/2 -translate-y-1/2
-                    top-[30%] sm:top-[40%] md:top-[38%] lg:top-[30%]
-                    w-[72px] h-[72px]
-                    sm:w-[80px] sm:h-[80px]
+                    absolute left-1/2 -translate-x-1/2
+                    top-[18%] sm:top-[20%] md:top-[10%] lg:top-[24%]
+                    w-[80px] h-[80px]
+                    sm:w-[88px] sm:h-[88px]
                     md:w-[88px] md:h-[88px]
-                    lg:w-[96px] lg:h-[96px]
+                    lg:w-[104px] lg:h-[104px]
+                    xl:w-[112px] xl:h-[112px]
                     rounded-full bg-[#A20000]
-                    flex items-center justify-center shadow-md
+                    flex items-center justify-center shadow-lg
                     z-30
                   "
                   >
@@ -321,56 +272,43 @@ export default function Services() {
                       src={rockIcon}
                       alt="Ikon batu"
                       className="
-                      w-[28px] h-[28px]
-                      sm:w-[32px] sm:h-[32px]
-                      md:w-[36px] md:h-[36px]
-                      lg:w-[40px] lg:h-[40px]
+                      w-[32px] h-[32px]
+                      sm:w-[36px] sm:h-[36px]
+                      md:w-[40px] md:h-[40px]
+                      lg:w-[44px] lg:h-[44px]
+                      xl:w-[48px] xl:h-[48px]
                       filter invert brightness-0
                     "
                     />
                   </div>
 
-                  {/* Judul + deskripsi */}
-                  <div
-                    className="
-                    absolute left-1/2 -translate-x-1/2 text-center w-full px-6
-                    z-40
-                  "
-                    style={{
-                      top: "calc(42% + 42px)",
-                    }}
-                  >
+                  {/* Judul + deskripsi - RELATIVE FLOW */}
+                  <div className="w-full px-6 text-center relative z-40 mt-auto pt-[80px] sm:pt-[90px]">
                     <h3
                       className="text-[#383737] font-extrabold tracking-tight"
                       style={{
                         fontFamily: "'Plus Jakarta Sans', sans-serif",
-                        fontSize: "clamp(18px, 1.6vw, 20px)",
+                        fontSize: "clamp(17px, 1.6vw, 20px)",
                         lineHeight: "1.3",
                       }}
                     >
                       SUPPLIER MATERIAL ALAM
                     </h3>
                     <p
-                      className="text-[#383737]/85 leading-relaxed mx-auto mt-[18px]"
+                      className="text-[#383737]/85 leading-[1.4] mx-auto mt-3"
                       style={{
-                        fontSize: "clamp(14px, 1.1vw, 15px)",
-                        maxWidth: "min(92%, 460px)",
+                        fontSize: "clamp(13px, 1.1vw, 15px)",
+                        maxWidth: "min(95%, 460px)",
                       }}
                     >
-                      Menyediakan Pasir (Ayak, Abu Batu, Urug), Batu Belah, Dan
-                      Split Dengan Kualitas Teruji Laboratorium.
+                      Menyediakan Pasir (Ayak, Abu Batu, Urug), Batu Belah, Dan Split Dengan Kualitas Teruji Laboratorium.
                     </p>
                   </div>
                 </div>
 
                 {/* === BODY (tags) === */}
-                <div className="px-6 pb-7 text-center">
-                  <div
-                    className="services-tags flex flex-wrap justify-center gap-x-[5px] gap-y-[9px] max-w-full"
-                    style={{
-                      marginTop: "24px",
-                    }}
-                  >
+                <div className="px-6 pb-7 pt-6 text-center">
+                  <div className="flex flex-wrap justify-center gap-x-[5px] gap-y-[9px] max-w-full">
                     <span
                       className="px-[9px] py-[3px] text-[12px] rounded-full bg-[#F6F6F6] text-[#383737]/85 border border-[#E5E5E5] font-[400] whitespace-nowrap"
                       style={{
@@ -412,18 +350,19 @@ export default function Services() {
               </div>
             </div>
 
-            {/* CARD 3: PENYEWAAN ALAT BERAT */}
-            <div className="flex">
+            {/* ========== CARD 3: PENYEWAAN ALAT BERAT ========== */}
+            <div className="flex h-full">
               <div
                 className="bg-white rounded-[20px] shadow-lg overflow-hidden border border-black/[0.04] hover:shadow-xl transition-shadow w-full flex flex-col"
                 style={{ border: "2px solid #DFDFDF" }}
               >
-                {/* === HEADER (gambar + gradient) === */}
+                {/* === HEADER (gambar + gradient) - DYNAMIC HEIGHT === */}
                 <div
                   className="
                   relative
-                  h-[240px] sm:h-[250px] md:h-[260px] lg:h-[280px] xl:h-[300px]
+                  min-h-[300px] sm:min-h-[320px] md:min-h-[340px] lg:min-h-[360px] xl:min-h-[380px]
                   bg-cover bg-center
+                  flex items-end pb-6
                 "
                   style={{
                     backgroundImage: `
@@ -437,20 +376,18 @@ export default function Services() {
                   `,
                   }}
                 >
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-white z-10" />
-
-                  {/* Lingkaran merah */}
+                  {/* Lingkaran merah - ADJUSTED SIZE & POSITION */}
                   <div
                     className="
-                    absolute left-1/2
-                    -translate-x-1/2 -translate-y-1/2
-                    top-[30%] sm:top-[40%] md:top-[38%] lg:top-[30%]
-                    w-[72px] h-[72px]
-                    sm:w-[80px] sm:h-[80px]
+                    absolute left-1/2 -translate-x-1/2
+                    top-[18%] sm:top-[20%] md:top-[10%] lg:top-[24%]
+                    w-[80px] h-[80px]
+                    sm:w-[88px] sm:h-[88px]
                     md:w-[88px] md:h-[88px]
-                    lg:w-[96px] lg:h-[96px]
+                    lg:w-[104px] lg:h-[104px]
+                    xl:w-[112px] xl:h-[112px]
                     rounded-full bg-[#A20000]
-                    flex items-center justify-center shadow-md
+                    flex items-center justify-center shadow-lg
                     z-30
                   "
                   >
@@ -458,56 +395,43 @@ export default function Services() {
                       src={truckIcon}
                       alt="Ikon truk"
                       className="
-                      w-[28px] h-[28px]
-                      sm:w-[32px] sm:h-[32px]
-                      md:w-[36px] md:h-[36px]
-                      lg:w-[40px] lg:h-[40px]
+                      w-[32px] h-[32px]
+                      sm:w-[36px] sm:h-[36px]
+                      md:w-[40px] md:h-[40px]
+                      lg:w-[44px] lg:h-[44px]
+                      xl:w-[48px] xl:h-[48px]
                       filter invert brightness-0
                     "
                     />
                   </div>
 
-                  {/* Judul + deskripsi */}
-                  <div
-                    className="
-                    absolute left-1/2 -translate-x-1/2 text-center w-full px-6
-                    z-40
-                  "
-                    style={{
-                      top: "calc(42% + 42px)",
-                    }}
-                  >
+                  {/* Judul + deskripsi - RELATIVE FLOW */}
+                  <div className="w-full px-6 text-center relative z-40 mt-auto pt-[80px] sm:pt-[90px]">
                     <h3
                       className="text-[#383737] font-extrabold tracking-tight"
                       style={{
                         fontFamily: "'Plus Jakarta Sans', sans-serif",
-                        fontSize: "clamp(18px, 1.6vw, 20px)",
+                        fontSize: "clamp(17px, 1.6vw, 20px)",
                         lineHeight: "1.3",
                       }}
                     >
                       PENYEWAAN ALAT BERAT
                     </h3>
                     <p
-                      className="text-[#383737]/85 leading-relaxed mx-auto mt-[18px]"
+                      className="text-[#383737]/85 leading-[1.4] mx-auto mt-3"
                       style={{
-                        fontSize: "clamp(14px, 1.1vw, 15px)",
-                        maxWidth: "min(92%, 460px)",
+                        fontSize: "clamp(13px, 1.1vw, 15px)",
+                        maxWidth: "min(95%, 460px)",
                       }}
                     >
-                      Layanan Sewa Mobil Truk, Pickup, Dan Excavator Dengan
-                      Operator Berpengalaman Dan Maintenance Rutin.
+                      Layanan Sewa Mobil Truk, Pickup, Dan Excavator Dengan Operator Berpengalaman Dan Maintenance Rutin.
                     </p>
                   </div>
                 </div>
 
                 {/* === BODY (tags) === */}
-                <div className="px-6 pb-7 text-center">
-                  <div
-                    className="services-tags flex flex-wrap justify-center gap-x-[5px] gap-y-[9px] max-w-full"
-                    style={{
-                      marginTop: "24px",
-                    }}
-                  >
+                <div className="px-6 pb-7 pt-6 text-center">
+                  <div className="flex flex-wrap justify-center gap-x-[5px] gap-y-[9px] max-w-full">
                     <span
                       className="px-[9px] py-[3px] text-[12px] rounded-full bg-[#F6F6F6] text-[#383737]/85 border border-[#E5E5E5] font-[400] whitespace-nowrap"
                       style={{

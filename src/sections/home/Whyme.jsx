@@ -19,33 +19,47 @@ import { ReactComponent as LabIcon } from "../../assets/icons/lab.svg";
 import { ReactComponent as GlobeIcon } from "../../assets/icons/globe.svg";
 
 const PANELS = [
-  { tag: "SEJAK 2009", title: "15+ Tahun Pengalaman", desc: "Pengalaman Dalam Menangani Proyek-Proyek Besar BUMN Dan Swasta Dengan Track Record Yang Terpercaya Sejak 2009." },
-  { tag: "LAB TRISAKTI", title: "Kualitas Teruji Lab", desc: "Semua Material Alam Telah Melalui Uji Kualitas Di Laboratorium Universitas Trisakti Untuk Menjamin Standar Terbaik." },
-  { tag: "SELURUH INDONESIA", title: "Jaringan Distribusi Luas", desc: "Melayani JABODETABEK Hingga Seluruh Indonesia: Jawa, Sumatera, Kalimantan, Dan Sulawesi Dengan Logistik Terpadu." },
+  {
+    tag: "SEJAK 2009",
+    title: "15+ Tahun Pengalaman",
+    desc: "Pengalaman Dalam Menangani Proyek-Proyek Besar BUMN Dan Swasta Dengan Track Record Yang Terpercaya Sejak 2009.",
+  },
+  {
+    tag: "LAB TRISAKTI",
+    title: "Kualitas Teruji Lab",
+    desc: "Semua Material Alam Telah Melalui Uji Kualitas Di Laboratorium Universitas Trisakti Untuk Menjamin Standar Terbaik.",
+  },
+  {
+    tag: "SELURUH INDONESIA",
+    title: "Jaringan Distribusi Luas",
+    desc: "Melayani JABODETABEK Hingga Seluruh Indonesia: Jawa, Sumatera, Kalimantan, Dan Sulawesi Dengan Logistik Terpadu.",
+  },
 ];
 
-const EASE = [0.22, 0.61, 0.36, 1];
+const EASE = [0.16, 1, 0.3, 1];
 const CARD_EASE = [0.22, 1, 0.36, 1];
-const DUR = 0.45;
-const CARD_DUR = 0.28;
-const AUTOPLAY_MS = 4500;
-
-// Autoplay untuk Mitra/Klien
+const DUR = 0.65;
+const CARD_DUR = 0.5;
+const AUTOPLAY_MS = 5500;
 const PARTNER_AUTOPLAY_MS = 5000;
 
-/* ====== Komponen teks toggle tanpa pergeseran (Desktop) ====== */
+/* ====== Toggle button Desktop ====== */
 function NoShiftTextButton({ label, selected, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative inline-flex items-baseline align-baseline bg-transparent px-1 focus:outline-none hover:opacity-90 transition-opacity"
+      className="relative inline-flex items-baseline align-baseline bg-transparent px-1 focus:outline-none hover:opacity-90 transition-opacity text-white"
       style={{ lineHeight: 1.15 }}
     >
-      <span className="invisible font-jakarta font-extrabold text-[30px]">{label}</span>
+      <span className="invisible font-jakarta font-extrabold md:text-[22px] lg:text-[30px]">
+        {label}
+      </span>
       <span
-        className={`absolute inset-0 font-jakarta text-[30px] ${selected ? "font-extrabold" : "font-normal"}`}
+        className={`absolute inset-0 font-jakarta md:text-[22px] lg:text-[30px] ${
+          selected ? "font-extrabold" : "font-normal"
+        }`}
         style={{ lineHeight: 1.15 }}
       >
         {label}
@@ -54,19 +68,23 @@ function NoShiftTextButton({ label, selected, onClick }) {
   );
 }
 
-/* ====== Komponen teks toggle tanpa pergeseran (Mobile) ====== */
+/* ====== Toggle button Mobile ====== */
 function NoShiftTextButtonMobile({ label, selected, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative inline-flex items-baseline align-baseline bg-transparent px-0.5 focus:outline-none hover:opacity-90 transition-opacity"
+      className="relative inline-flex items-baseline align-baseline bg-transparent px-0.5 focus:outline-none hover:opacity-90 transition-opacity text-white"
       style={{ lineHeight: 1.12 }}
     >
-      <span className="invisible font-jakarta font-extrabold text-[18px]">{label}</span>
+      <span className="invisible font-jakarta font-extrabold text-[18px]">
+        {label}
+      </span>
       <span
-        className={`absolute inset-0 font-jakarta text-[18px] ${selected ? "font-extrabold" : "font-normal"}`}
+        className={`absolute inset-0 font-jakarta text-[18px] ${
+          selected ? "font-extrabold" : "font-normal"
+        }`}
         style={{ lineHeight: 1.12 }}
       >
         {label}
@@ -79,7 +97,6 @@ export default function Whyme() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [partnerTab, setPartnerTab] = useState("mitra");
 
-  // autoplay untuk panel Whyme (atas)
   useEffect(() => {
     const id = setInterval(() => {
       setActiveIdx((p) => (p + 1) % PANELS.length);
@@ -87,7 +104,6 @@ export default function Whyme() {
     return () => clearInterval(id);
   }, []);
 
-  // autoplay untuk gambar Mitra/Klien (bawah)
   useEffect(() => {
     const id = setInterval(() => {
       setPartnerTab((p) => (p === "mitra" ? "klien" : "mitra"));
@@ -95,372 +111,619 @@ export default function Whyme() {
     return () => clearInterval(id);
   }, []);
 
-  // Preload gambar partner untuk performa optimal
   useEffect(() => {
-    [mitraImage, klienImage, mitraImageMobile, klienImageMobile].forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
+    [mitraImage, klienImage, mitraImageMobile, klienImageMobile].forEach(
+      (src) => {
+        const img = new Image();
+        img.src = src;
+      }
+    );
   }, []);
 
   return (
-    <section id="whyme" className="relative min-h-screen py-10 bg-white overflow-hidden">
-      {/* Backgrounds */}
+    <section
+      id="whyme"
+      className="relative w-full pb-4 sm:pb-18 md:pb-5 lg:pb-8 overflow-hidden"
+    >
+      {/* ========== BACKGROUNDS ========== */}
       <div className="absolute inset-0 z-0 lg:hidden">
-        <img src={bgMengapaKamiMobile} alt="" className="w-full h-full object-cover" />
+        <img
+          src={bgMengapaKamiMobile}
+          alt=""
+          className="w-full h-full object-cover"
+        />
       </div>
       <div className="absolute inset-0 z-0 hidden lg:block">
-        <img src={bgMengapaKamiDesktop} alt="" className="w-full h-full object-cover" />
+        <img
+          src={bgMengapaKamiDesktop}
+          alt=""
+          className="w-full h-full object-cover"
+        />
       </div>
       <div
         className="absolute inset-0 z-[1] pointer-events-none mix-blend-multiply"
-        style={{ background: "linear-gradient(to bottom, #A20000 0%, #A20000 54%, #800000 100%)" }}
+        style={{
+          background:
+            "linear-gradient(to bottom, #A20000 0%, #A20000 54%, #800000 100%)",
+        }}
       />
       <div className="absolute top-0 left-0 z-[2] pointer-events-none">
-        <img src={bgMengapaBundar} alt="" className="w-[250px] lg:w-[350px] h-auto" />
+        <img
+          src={bgMengapaBundar}
+          alt=""
+          className="w-[250px] lg:w-[350px] h-auto"
+        />
       </div>
 
-      {/* ================= MOBILE ================= */}
-      <div className="relative z-10 lg:hidden px-4 mt-4">
-        <h2 className="font-jakarta font-extrabold text-[#FAFAFA] text-center text-[26px] w-[230px] mx-auto drop-shadow-md">
-          Mengapa Memilih Kami?
-        </h2>
-
-        <div className="mt-3 px-8 py-[14px] border border-[#FFFFFF] rounded-xl max-w-[340px] mx-auto">
-          <p className="text-[#FAFAFA] text-[12px] mb-[14px] text-center max-w-[340px] mx-auto" style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}>
-            Keunggulan yang membuat kami menjadi pilihan utama untuk proyek konstruksi Anda
-          </p>
-          <button
-            className="flex items-center gap-1.5 px-[20px] py-[7px] border border-white text-white rounded-[20px] font-medium hover:bg-white/10 transition-all duration-300 text-[10px] mx-auto"
-            style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}
+      {/* ========== CONTENT ========== */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-10">
+        {/* ========== MOBILE: Title + Description (CENTER) ========== */}
+        <div className="lg:hidden">
+          <h2
+            className="text-center text-white font-jakarta font-extrabold text-[28px] sm:text-[32px] md:text-[34px]"
+            style={{
+              textShadow: "2px 2px 0px rgba(0, 0, 0, 0.23)",
+            }}
           >
-            Selengkapnya
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
+            Mengapa Memilih Kami?
+          </h2>
 
-        {/* Stepper ikon */}
-        <div className="relative mx-auto max-w-[268px] px-8 h-[45px] mt-[18px]">
-          <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-[2px] bg-[#5F5F5F] z-0" />
-          <div className="relative z-10 flex items-center justify-between h-full">
-            {[MedalIcon, LabIcon, GlobeIcon].map((IconComp, i) => {
-              const selected = activeIdx === i;
-              return (
+          <div className="mt-3 flex justify-center">
+            <div
+              className="border rounded-lg px-4 py-3 max-w-[340px] md:max-w-[520px]"
+              style={{
+                borderColor: "#FAFAFA",
+                borderRadius: "8px",
+              }}
+            >
+              <p
+                className="text-[12px] sm:text-[13px] md:text-[13px] text-center leading-relaxed mb-3"
+                style={{
+                  fontFamily: '"Segoe UI", SegoeUI, sans-serif',
+                  color: "#FAFAFA",
+                }}
+              >
+                Keunggulan Yang Membuat Kami Menjadi Pilihan Utama Untuk Proyek
+                Konstruksi Anda
+              </p>
+
+              <div className="flex justify-center">
                 <button
-                  key={i}
-                  type="button"
-                  onClick={() => setActiveIdx(i)}
-                  aria-pressed={selected}
-                  className="relative grid place-items-center w-[45px] h-[45px]"
+                  className="flex items-center gap-1.5 px-[20px] py-[7px] border border-white text-white rounded-[20px] font-medium hover:bg-white/10 transition-all duration-300 text-[10px]"
+                  style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}
                 >
-                  <div
-                    className={`grid place-items-center rounded-full shadow-sm ${selected ? "bg-white text-black" : "bg-[#2F2F2F] text-white"}`}
-                    style={{
-                      width: 45,
-                      height: 45,
-                      transform: `scale(${selected ? 1 : 0.9})`,
-                      transition: `transform 240ms cubic-bezier(${EASE.join(",")}), background-color 240ms, color 240ms`,
-                    }}
+                  Selengkapnya
+                  <svg
+                    className="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    <IconComp
-                      style={{
-                        width: 26,
-                        height: 26,
-                        transform: `scale(${selected ? 1 : 0.76})`,
-                        transition: `transform 240ms cubic-bezier(${EASE.join(",")})`,
-                      }}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
                     />
-                  </div>
+                  </svg>
                 </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Stack bar/card */}
-        <LayoutGroup>
-          <motion.div layout className="mt-[15px] w-full flex justify-center" transition={{ duration: DUR, ease: EASE }}>
-            <div className="w-full max-w-[360px] space-y-2">
-              {PANELS.map((panel, i) => {
-                const isActive = i === activeIdx;
-                return (
-                  <motion.div
-                    key={i}
-                    layout
-                    transition={{ duration: DUR, ease: EASE }}
-                    className={!isActive ? "cursor-pointer" : undefined}
-                    onClick={() => !isActive && setActiveIdx(i)}
-                  >
-                    <AnimatePresence initial={false} mode="wait">
-                      {isActive ? (
-                        <motion.div
-                          key={`card-${i}`}
-                          layout
-                          className="w-full bg-white rounded-2xl shadow-sm"
-                          initial={{ borderRadius: 999, height: 12, width: 200 }}
-                          animate={{ borderRadius: 16, height: "auto", width: "100%" }}
-                          exit={{ borderRadius: 999, height: 12, width: 200 }}
-                          transition={{ duration: DUR, ease: EASE }}
-                        >
-                          <motion.div
-                            layout
-                            className="px-[15px] py-[12px]"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: DUR * 0.6, ease: EASE }}
-                          >
-                            <p className="italic font-bold text-[12px] text-[#383838] mb-1 font-jakarta">{panel.tag}</p>
-                            <h3 className="text-[18px] font-[800] text-[#A20000] leading-snug mb-2 font-jakarta">{panel.title}</h3>
-                            <p className="text-[12px] leading-relaxed text-[#383838]">{panel.desc}</p>
-                          </motion.div>
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key={`bar-${i}`}
-                          layout
-                          className="rounded-full bg-white shadow-sm border border-white/70"
-                          style={{ height: 12, width: 200, borderRadius: 999 }}
-                          transition={{ duration: DUR, ease: EASE }}
-                        />
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </LayoutGroup>
-
-        {/* ====== MOBILE: Mitra & Klien Section (GRID OVERLAY - SMOOTH & STABLE) ====== */}
-        <div className="mt-4 relative">
-          {/* Vector TOP kiri */}
-          <img
-            src={vectorTop}
-            alt="Vector Top"
-            className="absolute -top-3 left-0 w-[100px] h-auto select-none pointer-events-none"
-            draggable="false"
-          />
-
-          {/* Teks toggle mobile */}
-          <div className="flex items-baseline justify-center gap-1 mb-[10px] pt-6">
-            <NoShiftTextButtonMobile
-              label="Mitra"
-              selected={partnerTab === "mitra"}
-              onClick={() => setPartnerTab("mitra")}
-            />
-            <span className="font-jakarta text-[18px] font-normal select-none">&nbsp;&amp;&nbsp;</span>
-            <NoShiftTextButtonMobile
-              label="Klien"
-              selected={partnerTab === "klien"}
-              onClick={() => setPartnerTab("klien")}
-            />
-          </div>
-
-          {/* Border wrapper + grid overlay untuk crossfade stabil */}
-          <div className="flex justify-center">
-            <div className="p-[6px] border border-white rounded-[16px]">
-              {/* Grid overlay: dua gambar ditumpuk di cell yang sama */}
-              <div className="grid rounded-[12px] overflow-hidden" style={{ gridTemplateColumns: '1fr', gridTemplateRows: '1fr' }}>
-                {/* Gambar Mitra - ALWAYS MOUNTED */}
-                <motion.img
-                  initial={false}
-                  src={mitraImageMobile}
-                  alt="Mitra"
-                  className="w-full max-w-[300px] select-none block"
-                  style={{ gridColumn: 1, gridRow: 1 }}
-                  animate={{ opacity: partnerTab === "mitra" ? 1 : 0 }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  draggable="false"
-                />
-                {/* Gambar Klien - ALWAYS MOUNTED */}
-                <motion.img
-                  initial={false}
-                  src={klienImageMobile}
-                  alt="Klien"
-                  className="w-full max-w-[300px] select-none block"
-                  style={{ gridColumn: 1, gridRow: 1 }}
-                  animate={{ opacity: partnerTab === "klien" ? 1 : 0 }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  draggable="false"
-                />
               </div>
             </div>
           </div>
-
-          {/* Vector BOT */}
-          <div className="flex justify-center mt-3">
-            <img
-              src={vectorBot}
-              alt="Vector Bottom"
-              className="w-[120px] h-auto select-none"
-              draggable="false"
-            />
-          </div>
         </div>
-        {/* ====== END MOBILE: Mitra & Klien ====== */}
-      </div>
 
-      {/* ================= DESKTOP ================= */}
-      <div className="relative z-10 hidden lg:block">
-        <div className="mx-auto w-full lg:px-0 xl:max-w-[1130px]">
-          <div className="grid grid-cols-[1.05fr_auto_1.6fr] gap-6 xl:gap-8 items-start">
-            {/* KIRI */}
-            <div className="pt-6 relative z-20 lg:pl-[100px]">
-              <h2 className="font-jakarta font-extrabold text-white drop-shadow-sm leading-[1.02] lg:text-[26px] xl:text-[32px] 2xl:text-[34px]">
+        {/* ========== MOBILE: STEPPER & CARDS ========== */}
+        <div className="lg:hidden">
+          <div className="relative mx-auto max-w-[268px] px-8 h-[45px] mt-[18px]">
+            <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-[2px] bg-[#5F5F5F] z-0" />
+            <div className="relative z-10 flex items-center justify-between h-full">
+              {[MedalIcon, LabIcon, GlobeIcon].map((IconComp, i) => {
+                const selected = activeIdx === i;
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setActiveIdx(i)}
+                    aria-pressed={selected}
+                    className="relative grid place-items-center w-[45px] h-[45px]"
+                  >
+                    <div
+                      className={`grid place-items-center rounded-full shadow-sm ${
+                        selected
+                          ? "bg-white text-black"
+                          : "bg-[#2F2F2F] text-white"
+                      }`}
+                      style={{
+                        width: 45,
+                        height: 45,
+                        transform: `scale(${selected ? 1 : 0.9})`,
+                        transition: `transform 300ms cubic-bezier(${EASE.join(
+                          ","
+                        )}), background-color 300ms, color 300ms`,
+                      }}
+                    >
+                      <IconComp
+                        style={{
+                          width: 26,
+                          height: 26,
+                          transform: `scale(${selected ? 1 : 0.76})`,
+                          transition: `transform 300ms cubic-bezier(${EASE.join(
+                            ","
+                          )})`,
+                        }}
+                      />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <LayoutGroup>
+            <motion.div
+              layout
+              className="mt-[15px] w-full flex justify-center"
+              transition={{ duration: DUR, ease: EASE }}
+            >
+              <div className="w-full max-w-[360px] space-y-2">
+                {PANELS.map((panel, i) => {
+                  const isActive = i === activeIdx;
+                  return (
+                    <motion.div
+                      key={i}
+                      layout
+                      transition={{
+                        duration: DUR,
+                        ease: EASE,
+                        delay: i * 0.04,
+                      }}
+                      className={!isActive ? "cursor-pointer" : undefined}
+                      onClick={() => !isActive && setActiveIdx(i)}
+                      whileHover={!isActive ? { scale: 1.02 } : {}}
+                    >
+                      <AnimatePresence initial={false} mode="wait">
+                        {isActive ? (
+                          <motion.div
+                            key={`card-${i}`}
+                            layout
+                            className="w-full bg-white rounded-2xl shadow-sm"
+                            initial={{
+                              borderRadius: 999,
+                              height: 12,
+                              width: 200,
+                              opacity: 0,
+                              scale: 0.95,
+                            }}
+                            animate={{
+                              borderRadius: 16,
+                              height: "auto",
+                              width: "100%",
+                              opacity: 1,
+                              scale: 1,
+                            }}
+                            exit={{
+                              borderRadius: 999,
+                              height: 12,
+                              width: 200,
+                              opacity: 0,
+                              scale: 0.95,
+                            }}
+                            transition={{
+                              duration: DUR,
+                              ease: EASE,
+                              layout: { duration: DUR * 0.8 },
+                            }}
+                          >
+                            <motion.div
+                              layout
+                              className="px-[15px] py-[12px]"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -10 }}
+                              transition={{
+                                duration: DUR * 0.5,
+                                ease: EASE,
+                                delay: 0.12,
+                              }}
+                            >
+                              <p className="italic font-bold text-[12px] text-[#383838] mb-1 font-jakarta">
+                                {panel.tag}
+                              </p>
+                              <h3 className="text-[18px] font-[800] text-[#A20000] leading-snug mb-2 font-jakarta">
+                                {panel.title}
+                              </h3>
+                              <p
+                                className="text-[12px] leading-relaxed text-[#383838]"
+                                style={{
+                                  fontFamily: '"Segoe UI", SegoeUI, sans-serif',
+                                }}
+                              >
+                                {panel.desc}
+                              </p>
+                            </motion.div>
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key={`bar-${i}`}
+                            layout
+                            className="rounded-full bg-white shadow-sm border border-white/70"
+                            style={{
+                              height: 12,
+                              width: 200,
+                              borderRadius: 999,
+                            }}
+                            transition={{ duration: DUR * 0.7, ease: EASE }}
+                            initial={{ opacity: 0, scale: 0.85 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.85 }}
+                          />
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </LayoutGroup>
+        </div>
+
+        {/* ========== DESKTOP: GRID LAYOUT (Kiri: Text | Tengah: Stepper | Kanan: Card) ========== */}
+        <div className="hidden lg:block mt-14 lg:mt-20 xl:mt-20">
+          <div className="grid grid-cols-[auto_auto_1fr] gap-12 xl:gap-16 items-center max-w-[1300px] mx-auto">
+            {/* KIRI: Heading + Deskripsi + Button */}
+            <div className="text-left">
+              <h2
+                className="text-white font-jakarta font-extrabold lg:text-[32px] xl:text-[38px] 2xl:text-[42px] leading-[1.1]"
+                style={{
+                  textShadow: "2px 2px 0px rgba(0, 0, 0, 0.23)",
+                }}
+              >
                 Mengapa
                 <br />
                 Memilih Kami?
               </h2>
 
-              <div className="mt-5 xl:mt-6 rounded-2xl border border-white/90 text-white lg:p-5 xl:p-6 lg:max-w-[560px] xl:max-w-[620px]">
-                <p className="lg:text-[14px] xl:text-[16px] leading-relaxed" style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}>
-                  Keunggulan Yang Membuat Kami Menjadi Pilihan Utama Untuk Proyek Konstruksi Anda
+              {/* Deskripsi dengan border */}
+              <div className="mt-6 xl:mt-7 rounded-2xl border border-white/90 text-white lg:p-5 xl:p-6 lg:max-w-[320px] xl:max-w-[360px]">
+                <p
+                  className="lg:text-[14px] xl:text-[15px] 2xl:text-[16px] leading-relaxed"
+                  style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}
+                >
+                  Keunggulan Yang Membuat Kami Menjadi Pilihan Utama Untuk
+                  Proyek Konstruksi Anda
                 </p>
+
+                {/* Button Selengkapnya */}
                 <a
                   href="#about"
                   className="mt-4 xl:mt-5 inline-flex items-center gap-2 rounded-[45px] border border-white bg-transparent lg:px-5 lg:py-[9px] xl:px-6 xl:py-[10px] lg:text-[12px] xl:text-[13px] font-semibold tracking-[0.02em] text-white hover:bg-white/10 transition"
                   style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                 >
                   SELENGKAPNYA
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </a>
               </div>
             </div>
 
-            {/* TENGAH: stepper vertikal */}
-            <div className="relative flex flex-col items-center pt-2">
-              <div className="absolute top-[60px] bottom-[60px] w-[2px] bg-[#3A3A3A]" />
-              {[{ Icon: MedalIcon, idx: 0 }, { Icon: LabIcon, idx: 1 }, { Icon: GlobeIcon, idx: 2 }].map(({ Icon, idx }, i) => {
+            {/* TENGAH: STEPPER VERTIKAL */}
+            <div className="relative flex flex-col items-center">
+              <div className="absolute top-[36px] bottom-[36px] w-[3px] bg-[#3A3A3A] rounded-full" />
+              {[
+                { Icon: MedalIcon, idx: 0 },
+                { Icon: LabIcon, idx: 1 },
+                { Icon: GlobeIcon, idx: 2 },
+              ].map(({ Icon, idx }, i) => {
                 const selected = activeIdx === idx;
                 return (
                   <button
                     key={i}
                     onClick={() => setActiveIdx(idx)}
                     aria-pressed={selected}
-                    className={`relative z-10 grid place-items-center rounded-full shadow-sm
-                      ${selected ? "bg-white text-black" : "bg-[#2F2F2F] text-white"}
-                      w-[56px] h-[56px] xl:w-[64px] xl:h-[64px] 2xl:w-[68px] 2xl:h-[68px]
-                      transition-transform duration-200
-                      ${i < 2 ? "mb-[22px] xl:mb-[26px]" : ""}`}
-                    style={{ transform: `scale(${selected ? 1 : 0.94})` }}
+                    className={`relative z-10 grid place-items-center rounded-full shadow-lg
+                      ${
+                        selected
+                          ? "bg-white text-black"
+                          : "bg-[#2F2F2F] text-white"
+                      }
+                      w-[64px] h-[64px] xl:w-[72px] xl:h-[72px] 2xl:w-[80px] 2xl:h-[80px]
+                      transition-all duration-300
+                      ${i < 2 ? "mb-[32px] xl:mb-[40px]" : ""}`}
+                    style={{
+                      transform: `scale(${selected ? 1.05 : 1})`,
+                      boxShadow: selected
+                        ? "0 8px 24px rgba(0,0,0,0.15)"
+                        : "0 4px 12px rgba(0,0,0,0.1)",
+                    }}
                   >
-                    <Icon width={28} height={28} className="lg:block xl:hidden" />
-                    <Icon width={32} height={32} className="hidden xl:block 2xl:hidden" />
-                    <Icon width={34} height={34} className="hidden 2xl:block" />
+                    <Icon
+                      width={32}
+                      height={32}
+                      className="lg:block xl:hidden"
+                    />
+                    <Icon
+                      width={36}
+                      height={36}
+                      className="hidden xl:block 2xl:hidden"
+                    />
+                    <Icon width={40} height={40} className="hidden 2xl:block" />
                   </button>
                 );
               })}
             </div>
 
-            {/* KANAN: card + bars */}
-            <div className="pt-2 lg:pr-[100px]">
-              <div className="space-y-3 lg:min-h-[180px] xl:min-h-[200px]">
-                {PANELS.map((panel, i) => {
-                  const isActive = i === activeIdx;
-                  return (
-                    <div key={i} className={!isActive ? "cursor-pointer" : undefined} onClick={() => !isActive && setActiveIdx(i)}>
-                      {isActive ? (
-                        <motion.div
-                          key={`desk-card-${i}`}
+            {/* KANAN: CONTENT CARD + BARS - SIMPLE & SMOOTH */}
+            <div className="relative space-y-3">
+              {PANELS.map((panel, i) => {
+                const isActive = i === activeIdx;
+                return (
+                  <div
+                    key={i}
+                    className={!isActive ? "cursor-pointer" : undefined}
+                    onClick={() => !isActive && setActiveIdx(i)}
+                  >
+                    {isActive ? (
+                      <motion.div
+                        layoutId="active-card"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="rounded-2xl bg-white shadow-xl px-[17px] py-[15px]"
+                      >
+                        {/* TAG */}
+                        <motion.p
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: CARD_DUR, ease: CARD_EASE }}
-                          className="rounded-2xl bg-[#F4F4F4] shadow-sm lg:px-[70px] lg:py-5 xl:px-[80px] xl:py-6"
-                          style={{ willChange: "transform, opacity" }}
+                          transition={{ duration: 0.25, delay: 0.1 }}
+                          className="italic font-bold text-[#383838] mb-2 lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-jakarta"
                         >
-                          <p className="italic font-bold text-[#4B4B4B] mb-1 lg:text-[12px] xl:text-[13px] 2xl:text-[13px] font-jakarta">{panel.tag}</p>
-                          <h3 className="text-[#A20000] leading-[1.18] mb-2 lg:text-[20px] xl:text-[24px] 2xl:text-[26px] font-[800] font-jakarta">{panel.title}</h3>
-                          <p className="text-[#4A4A4A] max-w-[860px] lg:text-[13px] xl:text-[15px] 2xl:text-[15px] leading-relaxed" style={{ fontFamily: '"Segoe UI", SegoeUI, sans-serif' }}>
-                            {panel.desc}
-                          </p>
-                        </motion.div>
-                      ) : (
-                        <div className="rounded-full bg-white shadow-sm border border-white/70 ml-auto transition-opacity duration-200" style={{ height: 12, width: 360, borderRadius: 999 }} />
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+                          {panel.tag}
+                        </motion.p>
+
+                        {/* TITLE */}
+                        <motion.h3
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.25, delay: 0.15 }}
+                          className="text-[#A20000] leading-[1.18] mb-4 lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[800] font-jakarta"
+                        >
+                          {panel.title}
+                        </motion.h3>
+
+                        {/* DESCRIPTION */}
+                        <motion.p
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.25, delay: 0.2 }}
+                          className="text-[#4A4A4A] max-w-[720px] lg:text-[15px] xl:text-[16px] 2xl:text-[17px] leading-relaxed"
+                          style={{
+                            fontFamily: '"Segoe UI", SegoeUI, sans-serif',
+                          }}
+                        >
+                          {panel.desc}
+                        </motion.p>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key={`bar-${i}`}
+                        initial={{ opacity: 0.7 }}
+                        animate={{ opacity: 1 }}
+                        whileHover={{ scale: 1.015, opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                        className="rounded-full bg-white shadow-md border border-white/70 hover:shadow-lg transition-shadow duration-200"
+                        style={{
+                          height: 16,
+                          width: "100%",
+                          maxWidth: 460,
+                        }}
+                      />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
+        </div>
 
-          {/* ========= Heading "Mitra & Klien" + gambar (Desktop - GRID OVERLAY) ========= */}
-          <div className="mt-[20px] hidden lg:flex flex-col items-center justify-center text-white">
-            {/* Teks (no-shift) + jarak 10px ke gambar */}
-            <div className="flex items-baseline justify-center gap-1 mb-[10px]">
-              <NoShiftTextButton
-                label="Mitra"
-                selected={partnerTab === "mitra"}
-                onClick={() => setPartnerTab("mitra")}
-              />
-              <span className="font-jakarta text-[30px] font-normal select-none">&nbsp;&amp;&nbsp;</span>
-              <NoShiftTextButton
-                label="Klien"
-                selected={partnerTab === "klien"}
-                onClick={() => setPartnerTab("klien")}
-              />
-            </div>
+        {/* ========== MITRA & KLIEN SECTION ========== */}
+        <div className="mt-2 lg:mt-8 relative">
+          {/* MOBILE VERSION */}
+          <div className="md:hidden">
+            <img
+              src={vectorTop}
+              alt="Vector Top"
+              className="absolute -top-16 -left-7 w-[160px] sm:w-[120px] h-auto select-none pointer-events-none z-10"
+              draggable="false"
+            />
 
-            {/* Vector nempel ke BORDER gambar (jarak 6px) */}
-            <div className="w-full flex items-center justify-center gap-[6px]">
-              {/* Kanan */}
-              <img
-                src={vectorKanan}
-                alt="Dekor kanan"
-                className="select-none shrink-0 w-[180px] lg:w-[220px]"
-                draggable="false"
-              />
+            <div className="relative z-20 py-4">
+              <div className="flex items-baseline justify-center gap-1 mb-6">
+                <NoShiftTextButtonMobile
+                  label="Mitra"
+                  selected={partnerTab === "mitra"}
+                  onClick={() => setPartnerTab("mitra")}
+                />
+                <span className="font-jakarta text-[18px] font-normal select-none text-white">
+                  &nbsp;&amp;&nbsp;
+                </span>
+                <NoShiftTextButtonMobile
+                  label="Klien"
+                  selected={partnerTab === "klien"}
+                  onClick={() => setPartnerTab("klien")}
+                />
+              </div>
 
-              {/* Gambar tengah dengan BORDER PUTIH + padding 6px + GRID OVERLAY */}
-              <div className="p-[6px] border border-white rounded-[20px]">
-                {/* Grid overlay: dua gambar ditumpuk di cell yang sama */}
-                <div className="grid rounded-[14px] overflow-hidden" style={{ gridTemplateColumns: '1fr', gridTemplateRows: '1fr' }}>
-                  {/* Gambar Mitra - ALWAYS MOUNTED */}
-                  <motion.img
-                    initial={false}
-                    src={mitraImage}
-                    alt="Mitra"
-                    className="w-full max-w-[760px] select-none block"
-                    style={{ gridColumn: 1, gridRow: 1 }}
-                    animate={{ opacity: partnerTab === "mitra" ? 1 : 0 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    draggable="false"
-                  />
-                  {/* Gambar Klien - ALWAYS MOUNTED */}
-                  <motion.img
-                    initial={false}
-                    src={klienImage}
-                    alt="Klien"
-                    className="w-full max-w-[760px] select-none block"
-                    style={{ gridColumn: 1, gridRow: 1 }}
-                    animate={{ opacity: partnerTab === "klien" ? 1 : 0 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    draggable="false"
-                  />
+              <div className="flex justify-center">
+                <div className="p-[6px] border border-white rounded-[16px]">
+                  <div
+                    className="grid rounded-[12px] overflow-hidden"
+                    style={{
+                      gridTemplateColumns: "1fr",
+                      gridTemplateRows: "1fr",
+                    }}
+                  >
+                    <img
+                      src={mitraImageMobile}
+                      alt="Mitra"
+                      className="w-full max-w-[300px] select-none block"
+                      style={{
+                        gridColumn: 1,
+                        gridRow: 1,
+                        opacity: partnerTab === "mitra" ? 1 : 0,
+                        transition:
+                          "opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
+                      }}
+                      draggable="false"
+                    />
+                    <img
+                      src={klienImageMobile}
+                      alt="Klien"
+                      className="w-full max-w-[300px] select-none block"
+                      style={{
+                        gridColumn: 1,
+                        gridRow: 1,
+                        opacity: partnerTab === "klien" ? 1 : 0,
+                        transition:
+                          "opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
+                      }}
+                      draggable="false"
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* Kiri */}
-              <img
-                src={vectorKiri}
-                alt="Dekor kiri"
-                className="select-none shrink-0 w-[180px] lg:w-[220px]"
-                draggable="false"
-              />
+              <div className="flex items-center justify-center gap-2 mt-4">
+                <button
+                  onClick={() => setPartnerTab("mitra")}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    partnerTab === "mitra" ? "bg-white" : "bg-white/40"
+                  }`}
+                  aria-label="Lihat Mitra"
+                />
+                <button
+                  onClick={() => setPartnerTab("klien")}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    partnerTab === "klien" ? "bg-white" : "bg-white/40"
+                  }`}
+                  aria-label="Lihat Klien"
+                />
+              </div>
+            </div>
+
+            <img
+              src={vectorBot}
+              alt="Vector Bottom"
+              className="absolute -bottom-10 -right-8 w-[160px] sm:w-[140px] h-auto select-none pointer-events-none z-10"
+              draggable="false"
+            />
+          </div>
+
+          {/* DESKTOP VERSION */}
+          <div className="hidden md:block">
+            <div className="flex flex-col items-center justify-center text-white">
+              <div className="flex items-baseline justify-center gap-1 mb-[10px]">
+                <NoShiftTextButton
+                  label="Mitra"
+                  selected={partnerTab === "mitra"}
+                  onClick={() => setPartnerTab("mitra")}
+                />
+                <span className="font-jakarta md:text-[22px] lg:text-[30px] font-normal select-none">
+                  &nbsp;&amp;&nbsp;
+                </span>
+                <NoShiftTextButton
+                  label="Klien"
+                  selected={partnerTab === "klien"}
+                  onClick={() => setPartnerTab("klien")}
+                />
+              </div>
+
+              <div className="w-full flex items-center justify-center gap-[6px] max-w-[1400px]">
+                <img
+                  src={vectorKanan}
+                  alt="Dekor kanan"
+                  className="select-none shrink-0"
+                  style={{ width: "clamp(140px, 18vw, 280px)" }}
+                  draggable="false"
+                />
+
+                <div className="p-[6px] border border-white rounded-[20px]">
+                  <div
+                    className="grid rounded-[14px] overflow-hidden"
+                    style={{
+                      gridTemplateColumns: "1fr",
+                      gridTemplateRows: "1fr",
+                    }}
+                  >
+                    <img
+                      src={mitraImage}
+                      alt="Mitra"
+                      className="w-full md:max-w-[520px] lg:max-w-[760px] xl:max-w-[840px] 2xl:max-w-[920px] select-none block"
+                      style={{
+                        gridColumn: 1,
+                        gridRow: 1,
+                        opacity: partnerTab === "mitra" ? 1 : 0,
+                        transition:
+                          "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                      }}
+                      draggable="false"
+                    />
+                    <img
+                      src={klienImage}
+                      alt="Klien"
+                      className="w-full md:max-w-[520px] lg:max-w-[760px] xl:max-w-[840px] 2xl:max-w-[920px] select-none block"
+                      style={{
+                        gridColumn: 1,
+                        gridRow: 1,
+                        opacity: partnerTab === "klien" ? 1 : 0,
+                        transition:
+                          "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                      }}
+                      draggable="false"
+                    />
+                  </div>
+                </div>
+
+                <img
+                  src={vectorKiri}
+                  alt="Dekor kiri"
+                  className="select-none shrink-0"
+                  style={{ width: "clamp(130px, 17vw, 270px)" }}
+                  draggable="false"
+                />
+              </div>
+
+              <div className="flex items-center justify-center gap-2 mt-4">
+                <button
+                  onClick={() => setPartnerTab("mitra")}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    partnerTab === "mitra" ? "bg-white" : "bg-white/40"
+                  }`}
+                  aria-label="Lihat Mitra"
+                />
+                <button
+                  onClick={() => setPartnerTab("klien")}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    partnerTab === "klien" ? "bg-white" : "bg-white/40"
+                  }`}
+                  aria-label="Lihat Klien"
+                />
+              </div>
             </div>
           </div>
-          {/* =================================================================== */}
         </div>
-      </div>
-
-      {/* spacer */}
-      <div className="relative z-10">
-        <div className="h-[18vh] lg:h-[20vh]" />
       </div>
     </section>
   );
