@@ -3,11 +3,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   theme: {
     screens: {
-      'sm': '640px',   // Small devices
-      'md': '768px',   // Medium devices  
-      'lg': '992px',   // Large devices (Desktop starts here)
-      'xl': '1280px',  // Extra large
-      '2xl': '1536px', // 2X Extra large
+      sm: "640px",
+      md: "768px",
+      lg: "992px",
+      xl: "1280px",
+      "2xl": "1536px",
     },
     extend: {
       fontFamily: {
@@ -15,5 +15,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // require('@tailwindcss/aspect-ratio'), // aktifkan jika dibutuhkan
+  ],
 };

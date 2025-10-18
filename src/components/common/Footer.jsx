@@ -13,6 +13,11 @@ const WHATSAPP_URL = "https://wa.me/+6281220000408";
 export default function Footer() {
   const CONTACT_HOVER_CLASS = "hover:text-red-500 transition-colors duration-200";
 
+  // Handler untuk scroll to top saat navigasi diklik
+  const handleNavClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="text-white">
       {/* === BLOCK UTAMA === */}
@@ -192,28 +197,23 @@ export default function Footer() {
           <nav className="mt-5 sm:mt-6 md:mt-7">
             <ul className="flex flex-wrap justify-center gap-x-6 sm:gap-x-8 md:gap-x-10 lg:gap-x-12 gap-y-2 sm:gap-y-3 text-xs sm:text-sm md:text-base">
               <li>
-                <Link to="/" className="hover:text-red-500 transition-colors font-medium">
+                <Link to="/" onClick={handleNavClick} className="hover:text-red-500 transition-colors font-medium">
                   BERANDA
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-red-500 transition-colors font-medium">
+                <Link to="/about" onClick={handleNavClick} className="hover:text-red-500 transition-colors font-medium">
                   TENTANG KAMI
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="hover:text-red-500 transition-colors font-medium">
+                <Link to="/services" onClick={handleNavClick} className="hover:text-red-500 transition-colors font-medium">
                   LAYANAN
                 </Link>
               </li>
               <li>
-                <Link to="/#projects" className="hover:text-red-500 transition-colors font-medium">
+                <Link to="/proyek" onClick={handleNavClick} className="hover:text-red-500 transition-colors font-medium">
                   PROYEK
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-red-500 transition-colors font-medium">
-                  KONTAK
                 </Link>
               </li>
             </ul>

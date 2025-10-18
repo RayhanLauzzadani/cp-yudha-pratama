@@ -2,6 +2,9 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import Masonry from "react-masonry-css";
 
+// Skeleton components
+import { SkeletonBlock, SkeletonLine, SkeletonChip } from "../../components/common/Skeleton";
+
 // === Import background ===
 import jaringBg from "../../assets/icons/jaring.png";
 import jaringMobileBg from "../../assets/icons/jaring_mobile.png";
@@ -16,11 +19,23 @@ export default function Proyek() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
   const [activeCategory, setActiveCategory] = useState("semua");
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [loadingHeader, setLoadingHeader] = useState(true);
+  const [loadingGrid, setLoadingGrid] = useState(true); // loading awal + saat ganti filter
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 992);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Header shimmer singkat saat mount
+  useEffect(() => {
+    const t1 = setTimeout(() => setLoadingHeader(false), 300);
+    const t2 = setTimeout(() => setLoadingGrid(false), 400); // grid siap sedikit setelah header
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
   // Filter proyek berdasarkan kategori dengan logic khusus
@@ -39,12 +54,18 @@ export default function Proyek() {
     });
   }, [activeCategory]);
 
-  // Handle category change dengan smooth transition
+  // Handle category change dengan smooth transition + skeleton grid
   const handleCategoryChange = (categoryId) => {
     if (categoryId === activeCategory) return;
     setIsTransitioning(true);
-    setTimeout(() => setActiveCategory(categoryId), 80);
-    setTimeout(() => setIsTransitioning(false), 380);
+    setLoadingGrid(true);
+    // kecilkan delay agar responsif
+    setTimeout(() => setActiveCategory(categoryId), 50);
+    // beri waktu singkat untuk grid skeleton tampil, lalu nonaktifkan
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setLoadingGrid(false);
+    }, 420);
   };
 
   // Breakpoints untuk masonry grid
@@ -65,30 +86,41 @@ export default function Proyek() {
       }}
     >
       <div className="relative z-10 container mx-auto px-4">
+        {/* Header */}
         <div className="text-center mb-12">
-          <h2
-            className="font-extrabold text-[#A20000] mb-4 
-                       text-[30px] sm:text-[32px] md:text-[34px] lg:text-[40px] lg:mt-1.5"
-            style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              letterSpacing: "-4px",
-            }}
-          >
-            Proyek
-          </h2>
+          {loadingHeader ? (
+            <div className="max-w-3xl mx-auto space-y-3">
+              <SkeletonLine w="w-1/3 mx-auto" />
+              <SkeletonLine w="w-2/3 mx-auto" />
+              <SkeletonLine w="w-1/2 mx-auto" />
+            </div>
+          ) : (
+            <>
+              <h2
+                className="font-extrabold text-[#A20000] mb-4 
+                           text-[30px] sm:text-[32px] md:text-[34px] lg:text-[40px] lg:mt-1.5"
+                style={{
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  letterSpacing: "-4px",
+                }}
+              >
+                Proyek
+              </h2>
 
-          <p
-            className="max-w-2xl mx-auto
-                       text-[15px] sm:text-[16px] md:text-[17px] lg:text-[20px]"
-            style={{
-              fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
-              fontWeight: 400,
-              color: "#393939",
-            }}
-          >
-            Lihat koleksi proyek konstruksi yang telah kami selesaikan dengan
-            kualitas terbaik
-          </p>
+              <p
+                className="max-w-2xl mx-auto
+                           text-[15px] sm:text-[16px] md:text-[17px] lg:text-[20px]"
+                style={{
+                  fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
+                  fontWeight: 400,
+                  color: "#393939",
+                }}
+              >
+                Lihat koleksi proyek konstruksi yang telah kami selesaikan dengan
+                kualitas terbaik
+              </p>
+            </>
+          )}
         </div>
 
         {/* White Rectangle Container */}
@@ -123,37 +155,69 @@ export default function Proyek() {
             ))}
           </div>
 
-          {/* Image Gallery Grid - Masonry Layout */}
-          <div
-            className="transition-opacity duration-150"
-            style={{ opacity: isTransitioning ? 0.6 : 1 }}
-          >
-            <Masonry
-              key={activeCategory}
-              breakpointCols={breakpointColumns}
-              className="flex gap-4 lg:gap-6"
-              columnClassName="flex flex-col gap-4 lg:gap-6"
+          {/* Grid: tampilkan skeleton saat loadingGrid */}
+          {loadingGrid ? (
+            <GridSkeleton />
+          ) : (
+            <div
+              className="transition-opacity duration-150"
+              style={{ opacity: isTransitioning ? 0.6 : 1 }}
             >
-              {filteredProjects.map((project, index) => (
-                <CardProject key={project.id} project={project} index={index} />
-              ))}
-            </Masonry>
-          </div>
+              <Masonry
+                key={activeCategory}
+                breakpointCols={breakpointColumns}
+                className="flex gap-4 lg:gap-6"
+                columnClassName="flex flex-col gap-4 lg:gap-6"
+              >
+                {filteredProjects.map((project, index) => (
+                  <CardProject key={project.id} project={project} index={index} />
+                ))}
+              </Masonry>
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------- Card Project: natural ratio tanpa metadata, anti glitch ---------- */
+/* ---------- Grid Skeleton: placeholder saat loading awal/ubah filter ---------- */
+function GridSkeleton() {
+  // Perkiraan 4 kolom skeleton agar tampak rapi di desktop
+  const columns = 4;
+  const rowsPerCol = 5;
+  return (
+    <div className="flex gap-4 lg:gap-6">
+      {Array.from({ length: columns }).map((_, col) => (
+        <div key={col} className="flex flex-col gap-4 lg:gap-6 w-full">
+          {Array.from({ length: rowsPerCol }).map((__, i) => (
+            <div key={i} className="w-full">
+              <div className="w-full relative" style={{ paddingTop: "75%" }}>
+                <SkeletonBlock h="h-full" />
+              </div>
+              <div className="mt-3 space-y-2">
+                <SkeletonLine w="w-3/4" />
+                <SkeletonLine w="w-1/2" />
+                <div className="flex gap-2">
+                  <SkeletonChip />
+                  <SkeletonChip w="w-24" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------- Card Project: natural ratio via preload, anti glitch ---------- */
 function CardProject({ project, index }) {
   const [loaded, setLoaded] = useState(false);
   const [paddingTop, setPaddingTop] = useState(() => {
-    // pakai cache jika sudah ada
     const cached = ratioCache.get(project.image);
     return typeof cached === "number" ? cached : null;
   });
-
   const preloadRef = useRef(null);
 
   useEffect(() => {
@@ -164,7 +228,7 @@ function CardProject({ project, index }) {
     preloadRef.current = img;
     img.src = project.image;
     img.decoding = "async";
-    img.loading = "eager"; // preload untuk dapatkan dimensi secepatnya
+    img.loading = "eager";
     img.onload = () => {
       const w = img.naturalWidth || 1;
       const h = img.naturalHeight || 1;
@@ -173,8 +237,7 @@ function CardProject({ project, index }) {
       setPaddingTop(ratioPct);
     };
     img.onerror = () => {
-      // fallback rasio kira-kira bila gagal load
-      const ratioPct = 75;
+      const ratioPct = 75; // fallback rasio
       ratioCache.set(project.image, ratioPct);
       setPaddingTop(ratioPct);
     };
@@ -184,7 +247,6 @@ function CardProject({ project, index }) {
     };
   }, [project.image, paddingTop]);
 
-  // Jika ratio belum didapat, tampilkan placeholder tinggi tetap agar tidak loncat
   const wrapperStyle =
     paddingTop != null ? { paddingTop: `${paddingTop}%` } : { paddingTop: "75%" };
 
@@ -207,6 +269,7 @@ function CardProject({ project, index }) {
           decoding="async"
           fetchpriority="low"
           onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${
             loaded ? "opacity-100" : "opacity-0"
           }`}

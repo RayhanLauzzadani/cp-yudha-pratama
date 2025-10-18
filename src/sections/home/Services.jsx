@@ -80,10 +80,10 @@ const SERVICES_DATA = [
     iconAlt: "Ikon batu",
     title: "SUPPLIER MATERIAL ALAM",
     description:
-      "Menyediakan Pasir (Ayak, Abu Batu, Urug), Batu Belah, Dan Split Dengan Kualitas Teruji Laboratorium.",
+      "Menyediakan Pasir (Ayak, Abu Batu, Urug), Batu Belah, Split Dengan Kualitas Teruji Laboratorium, Dan Masih Banyak Lagi.",
     tags: [
       "Pasir Ayak & Abu Batu",
-      "Uji Lab Trisakti",
+      "Uji Lab Universitas Terkemuka",
       "Pasir Urug Berkualitas",
       "Batu Belah & Split",
     ],
@@ -96,7 +96,7 @@ const SERVICES_DATA = [
     description:
       "Layanan Sewa Mobil Truk, Pickup, Dan Excavator Dengan Operator Berpengalaman Dan Maintenance Rutin.",
     tags: [
-      "Excavator Komatsu PC 78",
+      "Excavator PC 78, PC 100, PC 200",
       "Mobil Truk & Pickup",
       "Operator Berpengalaman",
       "Maintenance Terjamin",

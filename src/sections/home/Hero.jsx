@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+// src/sections/hero/Hero.jsx
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { SkeletonBlock, SkeletonLine } from "../../components/common/Skeleton";
+
 import carousel1 from "../../assets/images/carousel_1.png";
 import carousel2 from "../../assets/images/carousel_2.png";
 import carousel3 from "../../assets/images/carousel_3.png";
@@ -34,7 +37,11 @@ export default function Hero() {
   const [leavingIndex, setLeavingIndex] = useState(null);
   const [imgHeight, setImgHeight] = useState(0);
   const [progress, setProgress] = useState(0); // 0..1
-  const [belowLg, setBelowLg] = useState(false); // < 992px (layout & image breakpoint)
+  const [belowLg, setBelowLg] = useState(false); // < 992px
+
+  // loading state untuk setiap slide (desktop & mobile)
+  const [loadedDesk, setLoadedDesk] = useState(Array(SLIDES.length).fill(false));
+  const [loadedMob, setLoadedMob] = useState(Array(SLIDES_MOBILE.length).fill(false));
 
   // ukuran segmen mobile (px) = lebar kontainer / jumlah slide
   const mobileBarRef = useRef(null);
@@ -44,7 +51,6 @@ export default function Hero() {
   const imgRef = useRef(null);
   const rafRef = useRef(null);
   const startTimeRef = useRef(null);
-  const clearLeavingTimer = useRef(null);
 
   const segmentPct = 100 / SLIDES.length;
 
@@ -59,7 +65,7 @@ export default function Hero() {
     }
   };
 
-  // deteksi viewport < lg (Custom Tailwind lg = 992px) untuk LAYOUT & IMAGE
+  // deteksi viewport < lg (992px)
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 991.98px)");
     const update = () => setBelowLg(mq.matches);
@@ -93,7 +99,6 @@ export default function Hero() {
       if (startTimeRef.current == null) startTimeRef.current = time;
       const elapsed = time - startTimeRef.current;
       const raw = Math.min(elapsed / DURATION, 1);
-      // Linear progress - no easing
       setProgress(raw);
 
       if (raw < 1) {
@@ -110,9 +115,9 @@ export default function Hero() {
     const prev = prevIndexRef.current;
     if (prev !== index) {
       setLeavingIndex(prev);
-      if (clearLeavingTimer.current) clearTimeout(clearLeavingTimer.current);
-      clearLeavingTimer.current = setTimeout(() => setLeavingIndex(null), TEXT_ANIM_MS);
+      const t = setTimeout(() => setLeavingIndex(null), TEXT_ANIM_MS);
       prevIndexRef.current = index;
+      return () => clearTimeout(t);
     }
   }, [index]);
 
@@ -133,127 +138,166 @@ export default function Hero() {
 
   const goToPrevSlide = () => {
     cancelAnimation();
+    setProgress(0);
     setIndex((i) => (i - 1 + SLIDES.length) % SLIDES.length);
   };
 
   const goToNextSlideManual = () => {
     cancelAnimation();
+    setProgress(0);
     setIndex((i) => (i + 1) % SLIDES.length);
   };
 
   const activeContent = SLIDE_CONTENT[index];
   const leavingContent = leavingIndex !== null ? SLIDE_CONTENT[leavingIndex] : null;
 
-  // pilih sumber gambar: mobile vs desktop (breakpoint 992px untuk gambar & layout)
+  // pilih sumber gambar: mobile vs desktop
   const IMAGES_TO_USE = belowLg ? SLIDES_MOBILE : SLIDES;
+  const loadedArray = belowLg ? loadedMob : loadedDesk;
+  const setLoadedArray = belowLg ? setLoadedMob : setLoadedDesk;
+
+  // helper onLoad per index slide
+  const markLoaded = useCallback(
+    (i) => {
+      setLoadedArray((prev) => {
+        if (prev[i]) return prev;
+        const next = [...prev];
+        next[i] = true;
+        return next;
+      });
+    },
+    [setLoadedArray]
+  );
+
+  // preloading opsional: muat next image di background agar transisi mulus
+  useEffect(() => {
+    const nextIdx = (index + 1) % IMAGES_TO_USE.length;
+    const src = IMAGES_TO_USE[nextIdx];
+    const img = new Image();
+    img.src = src;
+    // tidak perlu set state saat load di sini; cukup browser cache
+  }, [index, IMAGES_TO_USE]);
 
   return (
     <section
       className="relative w-full overflow-hidden bg-white font-jakarta leading-none"
-      style={{ height: belowLg ? "auto" : (imgHeight || "auto") }}
+      style={{ height: belowLg ? "auto" : imgHeight || "auto" }}
     >
       <div className="relative w-full flex flex-col items-center justify-start">
         {/* Gambar Carousel (fade) */}
         <div className="relative w-full flex items-center justify-center">
-          {IMAGES_TO_USE.map((src, i) => (
-            <img
-              key={`slide-${i}`}
-              ref={i === index ? imgRef : null}
-              src={src}
-              alt={`Slide ${i + 1}`}
-              className={`block w-full h-auto object-contain transition-opacity duration-700 ease-in-out
-                ${i === index ? "opacity-100 z-10" : "opacity-0 z-0 absolute"}`}
-              onLoad={() => {
-                if (i === index && imgRef.current) {
-                  setImgHeight(imgRef.current.clientHeight);
-                }
-              }}
-              draggable={false}
-            />
-          ))}
+          {IMAGES_TO_USE.map((src, i) => {
+            const isActive = i === index;
+            const isLoaded = loadedArray[i];
+            return (
+              <div
+                key={`slide-wrap-${i}`}
+                className={`w-full ${isActive ? "z-10" : "z-0"} ${!isActive ? "absolute inset-0" : ""}`}
+              >
+                {/* Skeleton overlay absolute sampai image siap */}
+                {!isLoaded && (
+                  <div className="relative" style={{ paddingTop: belowLg ? "56.25%" : "35%" }}>
+                    <SkeletonBlock h="h-full absolute inset-0" />
+                  </div>
+                )}
+
+                <img
+                  ref={isActive ? imgRef : null}
+                  src={src}
+                  alt={`Slide ${i + 1}`}
+                  className={`block w-full h-auto object-contain transition-opacity duration-700 ease-in-out ${
+                    isActive ? "opacity-100" : "opacity-0 absolute inset-0"
+                  }`}
+                  onLoad={() => {
+                    markLoaded(i);
+                    if (isActive && imgRef.current) {
+                      setImgHeight(imgRef.current.clientHeight);
+                    }
+                  }}
+                  onError={() => markLoaded(i)}
+                  draggable={false}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {/* === MOBILE CONTENT (< lg): teks bawah + progress dinamis === */}
         {belowLg && (
           <>
-            {/* Vector Top - positioned di kiri bawah gambar, TANPA padding */}
+            {/* Vector Top */}
             <div className="relative w-full h-0">
-              <img 
-                src={vectorTop} 
-                alt="Decoration" 
+              <img
+                src={vectorTop}
+                alt="Decoration"
                 className="absolute left-0 w-[150px] sm:w-[190px] md:w-[220px] top-[-70px] sm:top-[-90px] md:top-[-104px] z-0"
               />
             </div>
 
             <div className="w-full px-4 pt-5 pb-4 sm:pb-5">
-              {/* Container dengan min-height fixed agar progress bar tidak naik-turun */}
               <div className="text-center text-[#383737] relative z-10 min-h-[280px] sm:min-h-[260px] md:min-h-[240px] flex flex-col justify-start">
-              
-              {/* Leaving content - fade out */}
-              {leavingContent && (
-                <MobileTextBlock
-                  key={`leaving-mobile-${leavingIndex}`}
-                  content={leavingContent}
-                  state="out"
-                  duration={TEXT_ANIM_MS}
-                />
-              )}
+                {leavingContent && (
+                  <MobileTextBlock
+                    key={`leaving-mobile-${leavingIndex}`}
+                    content={leavingContent}
+                    state="out"
+                    duration={TEXT_ANIM_MS}
+                  />
+                )}
 
-              {/* Active content - fade in */}
-              {activeContent && (
-                <MobileTextBlock
-                  key={`active-mobile-${index}`}
-                  content={activeContent}
-                  state="in"
-                  duration={TEXT_ANIM_MS}
-                />
-              )}
+                {activeContent && (
+                  <MobileTextBlock
+                    key={`active-mobile-${index}`}
+                    content={activeContent}
+                    state="in"
+                    duration={TEXT_ANIM_MS}
+                  />
+                )}
               </div>
 
-            {/* progress bar mobile: jarak responsive dari button */}
-            <div className="mt-[-50px] sm:mt-[-20px] md:mt-8 flex justify-center">
-              <div
-                ref={mobileBarRef}
-                className="relative h-[12px] w-full max-w-[460px] rounded-full bg-[#E2E2E2] overflow-hidden"
-              >
-                {/* separator opsional */}
-                {Array.from({ length: SLIDES.length }).map((_, i) => (
+              {/* progress bar mobile */}
+              <div className="mt-[-50px] sm:mt-[-20px] md:mt-8 flex justify-center">
+                <div
+                  ref={mobileBarRef}
+                  className="relative h-[12px] w-full max-w-[460px] rounded-full bg-[#E2E2E2] overflow-hidden"
+                >
+                  {Array.from({ length: SLIDES.length }).map((_, i) => (
+                    <div
+                      key={`msep-${i}`}
+                      className="absolute top-0 h-full border-r border-white/30"
+                      style={{
+                        left: `${(i * 100) / SLIDES.length}%`,
+                        width: `${100 / SLIDES.length}%`,
+                      }}
+                    />
+                  ))}
+
                   <div
-                    key={`msep-${i}`}
-                    className="absolute top-0 h-full border-r border-white/30"
+                    className="absolute top-0 h-full rounded-full bg-[#A20000] shadow-[0_0_8px_rgba(162,0,0,0.5)]"
                     style={{
-                      left: `${(i * 100) / SLIDES.length}%`,
-                      width: `${100 / SLIDES.length}%`,
+                      left: `${index * mobileSegWidth}px`,
+                      width: `${progress * mobileSegWidth}px`,
+                      transformOrigin: "left center",
+                      transition: "none",
+                      willChange: "width,left",
                     }}
                   />
-                ))}
-
-                {/* indikator berjalan dengan glow effect */}
-                <div
-                  className="absolute top-0 h-full rounded-full bg-[#A20000] shadow-[0_0_8px_rgba(162,0,0,0.5)]"
-                  style={{
-                    left: `${index * mobileSegWidth}px`,
-                    width: `${progress * mobileSegWidth}px`,
-                    transformOrigin: "left center",
-                    transition: "none",
-                    willChange: "width,left",
-                  }}
-                />
+                </div>
               </div>
             </div>
-            </div>
-            {/* Vector Bottom - di batas paling bawah, posisi kanan */}
+
+            {/* Vector Bottom */}
             <div className="relative w-full mt-6 sm:mt-8">
-              <img 
-                src={vectorBot} 
-                alt="Decoration Bottom" 
+              <img
+                src={vectorBot}
+                alt="Decoration Bottom"
                 className="absolute right-0 w-[150px] sm:w-[190px] md:w-[220px] bottom-0 z-0"
               />
             </div>
           </>
         )}
 
-        {/* === DESKTOP CONTENT (≥ lg): overlay teks + panah + progress === */}
+        {/* === DESKTOP CONTENT (≥ lg) === */}
         {!belowLg && (
           <>
             {/* TEKS: leaving + active */}
@@ -304,7 +348,7 @@ export default function Hero() {
               <span className="text-lg font-bold">❯</span>
             </button>
 
-            {/* Progress bar desktop: berbasis persentase */}
+            {/* Progress bar desktop */}
             <div className="absolute left-0 right-0 px-4 sm:px-6 xl:px-10 z-20" style={{ bottom: "10px" }}>
               <div className="relative h-[14px] w-full rounded-full bg-[#E2E2E2] overflow-hidden">
                 {SLIDES.map((_, i) => (
@@ -314,7 +358,6 @@ export default function Hero() {
                     style={{ left: `${i * segmentPct}%`, width: `${segmentPct}%` }}
                   />
                 ))}
-                {/* Progress bar dengan glow effect */}
                 <div
                   className="absolute top-0 h-full rounded-full bg-[#A20000] shadow-[0_0_10px_rgba(162,0,0,0.6)]"
                   style={{
@@ -475,4 +518,3 @@ function MobileTextBlock({ content, state, duration }) {
     </div>
   );
 }
-

@@ -63,3 +63,40 @@
     transform: translateY(0);
   }
 }
+
+/* ===== Shimmer Animation (untuk Skeleton) ===== */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Aksesibilitas: hormati prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  /* Matikan animasi shimmer bila user minta less motion */
+  .animate-\[shimmer_1\.2s_infinite\] {
+    animation: none !important;
+  }
+}
+
+/* Utilities tambahan (opsional) */
+@layer utilities {
+  /* Hemat render untuk list/section panjang */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
+  }
+
+  /* Jika ingin util overlay shimmer siap pakai tanpa bracket syntax */
+  .shimmer-overlay {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    animation: shimmer 1.2s infinite;
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.6),
+      transparent
+    );
+  }
+}
