@@ -14,11 +14,12 @@ const NAV_ITEMS = [
   { id: "home", label: "BERANDA", type: "route", to: "/" },
   { id: "about", label: "TENTANG KAMI", type: "route", to: "/about" },
   { id: "services", label: "LAYANAN", type: "route", to: "/services" },
-  { id: "projects", label: "PROYEK", type: "hash", to: "#projects" },
+  { id: "proyek", label: "PROYEK", type: "route", to: "/proyek" },
   // { id: "gallery", label: "GALERI", type: "hash", to: "#gallery" },
 ];
 
-const COMPANY_PROFILE_URL = "/company-profile.pdf";
+// Link Google Drive Company Profile
+const COMPANY_PROFILE_URL = "https://drive.google.com/file/d/1h4m1SNqtQDMVDlHsS7lsqCKMFishSmhI/view";
 
 export default function Navbar() {
   const { pathname, hash } = useLocation();
@@ -205,7 +206,8 @@ export default function Navbar() {
             >
               <a
                 href={COMPANY_PROFILE_URL}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center whitespace-nowrap"
               >
                 <span className="inline-block">COMPANY PROFILE</span>
@@ -307,7 +309,8 @@ export default function Navbar() {
               >
                 <a
                   href={COMPANY_PROFILE_URL}
-                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center whitespace-nowrap"
                 >
                   <span className="inline-block">DOWNLOAD COMPANY PROFILE</span>

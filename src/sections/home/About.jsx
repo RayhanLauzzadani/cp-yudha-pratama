@@ -1,5 +1,6 @@
 // src/sections/About.jsx
 import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import teamPhoto from "../../assets/images/team-photo.png";
 
 const DURATION_STAGE1 = 650; // pink moveShrink & grayMoveMorphStage1
@@ -28,9 +29,15 @@ export default function About() {
   const grayRef = useRef(null);       // abu-abu
   const descRef = useRef(null);       // kontainer deskripsi (ukur)
   const targetDotRef = useRef(null);  // anchor pink (hidden)
+  const navigate = useNavigate();
 
   // eslint-disable-next-line no-unused-vars
   const [finished, setFinished] = useState(false);
+
+  const handleReadMore = () => {
+    // Navigate ke halaman /about dengan hash #company-profile
+    navigate('/about#company-profile');
+  };
 
   const runAnimation = () => {
     const elPink = movingPinkRef.current;
@@ -352,7 +359,10 @@ export default function About() {
             </p>
           </div>
 
-          <button className="mt-6 px-6 py-2 sm:px-7 sm:py-2.5 md:px-8 md:py-3 border border-[#A20000] rounded-full text-[#A20000] text-[11px] sm:text-[13px] md:text-[14px] font-semibold tracking-wide hover:bg-[#A20000] hover:text-white transition-all duration-300 ease-out">
+          <button 
+            onClick={handleReadMore}
+            className="mt-6 px-6 py-2 sm:px-7 sm:py-2.5 md:px-8 md:py-3 border border-[#A20000] rounded-full text-[#A20000] text-[11px] sm:text-[13px] md:text-[14px] font-semibold tracking-wide hover:bg-[#A20000] hover:text-white transition-all duration-300 ease-out"
+          >
             BACA LEBIH LANJUT
           </button>
         </div>

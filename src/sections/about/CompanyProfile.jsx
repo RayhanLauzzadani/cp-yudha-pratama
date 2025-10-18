@@ -6,7 +6,10 @@ import vectorLeft from "../../assets/icons/vector_left.png";
 
 export default function CompanyProfile() {
   return (
-    <section className="relative w-full bg-white pb-6 sm:py-10 lg:py-12 overflow-hidden">
+    <section 
+      id="company-profile" 
+      className="relative w-full bg-white pb-6 sm:py-10 lg:py-12 overflow-hidden scroll-mt-20"
+    >
       {/* Vector kanan atas */}
       <img
         src={vectorRight}
