@@ -1,6 +1,5 @@
 // src/components/sections/Layanan.jsx
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 // === Import aset background ===
 import bgFull from "../../assets/images/layanan/bg-layanan-full.png";
@@ -20,22 +19,6 @@ import rockIcon from "../../assets/icons/rock.svg";
 import truckIcon from "../../assets/icons/truck.svg";
 
 export default function Layanan() {
-  const [setBgImage] = useState(bgFull);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 640) {
-        setBgImage(bgMobile);
-      } else {
-        setBgImage(bgFull);
-      }
-    };
-
-    handleResize(); // jalankan sekali saat mount
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <section className="relative min-h-screen pb-12 md:pb-16 lg:pb-20">
       {/* Background Mobile & MD */}
