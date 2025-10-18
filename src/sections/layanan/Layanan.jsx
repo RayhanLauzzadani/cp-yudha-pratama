@@ -2,71 +2,25 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-// === Import aset (desktop) ===
+// === Import aset background ===
 import bgFull from "../../assets/images/layanan/bg-layanan-full.png";
 import bgMobile from "../../assets/images/layanan/bg-layanan-mobile.png";
-import img1 from "../../assets/images/layanan/layanan_1.png";
-import img2 from "../../assets/images/layanan/layanan_2.png";
-import img3 from "../../assets/images/layanan/layanan_3.png";
-import ic1 from "../../assets/images/layanan/icon_1.png";
-import ic2 from "../../assets/images/layanan/icon_2.png";
-import ic3 from "../../assets/images/layanan/icon_3.png";
 
-// === Import aset (mobile) ===
-import img1m from "../../assets/images/layanan/layanan_1-mobile.png";
-import img2m from "../../assets/images/layanan/layanan_2-mobile.png";
-import img3m from "../../assets/images/layanan/layanan_3-mobile.png";
-import ic1m from "../../assets/images/layanan/icon_1-mobile.png";
-import ic2m from "../../assets/images/layanan/icon_2-mobile.png";
-import ic3m from "../../assets/images/layanan/icon_3-mobile.png";
+// === Import gambar layanan ===
+import layanan1Desktop from "../../assets/images/layanan/layanan_1.png";
+import layanan1Mobile from "../../assets/images/layanan/layanan_1-mobile.png";
+import layanan2Desktop from "../../assets/images/layanan/layanan_2.png";
+import layanan2Mobile from "../../assets/images/layanan/layanan_2-mobile.png";
+import layanan3Desktop from "../../assets/images/layanan/layanan_3.png";
+import layanan3Mobile from "../../assets/images/layanan/layanan_3-mobile.png";
 
-const SERVICES = [
-  {
-    id: 1,
-    title: "KONTRAKTOR UMUM",
-    desc: "Menyediakan persiapan lahan, pembangunan saluran air, pekerjaan kolom detensi, pekerjaan galian tanah, serta pembangunan/pembuatan jalan.",
-    img: { desktop: img1, mobile: img1m, alt: "Kontraktor umum" },
-    icon: { desktop: ic1, mobile: ic1m, alt: "Ikon kontraktor" },
-    cta: null,
-  },
-  {
-    id: 2,
-    title: "SUPPLIER BAHAN ALAM",
-    desc: "Menyediakan berbagai material konstruksi berbasis sumber daya alam dengan kualitas terjamin untuk mendukung kelancaran proyek pembangunan.",
-    chips: [
-      "Pasir Cuci",
-      "Pasir Urug",
-      "Pasir Abu Batu",
-      "Pasir Ayak",
-      "Batu Belah",
-      "Split",
-      "Bahan Material Lainnya",
-    ],
-    img: { desktop: img2, mobile: img2m, alt: "Supplier bahan alam" },
-    icon: { desktop: ic2, mobile: ic2m, alt: "Ikon supplier" },
-    cta: { label: "Bukti Uji Lab", to: "/dokumen/uji-lab" },
-  },
-  {
-    id: 3,
-    title: "HEAVY EQUIPMENT RENTAL",
-    desc: "Kami menyediakan layanan penyewaan alat berat yang handal dan terawat untuk mendukung kelancaran proyek konstruksi maupun infrastruktur. Dengan armada yang lengkap, harga kompetitif, serta pelayanan yang profesional, kami siap menjadi mitra terpercaya bagi setiap kebutuhan proyek Anda.",
-    chips: ["Truk", "Excavator", "Pickup", "Peralatan Pendukung Lainnya"],
-    img: { desktop: img3, mobile: img3m, alt: "Sewa alat berat" },
-    icon: { desktop: ic3, mobile: ic3m, alt: "Ikon rental alat berat" },
-    cta: null,
-  },
-];
-
-function Chip({ children }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80 backdrop-blur-sm">
-      {children}
-    </span>
-  );
-}
+// === Import icon ===
+import buildingIcon from "../../assets/icons/building.svg";
+import rockIcon from "../../assets/icons/rock.svg";
+import truckIcon from "../../assets/icons/truck.svg";
 
 export default function Layanan() {
-  const [bgImage, setBgImage] = useState(bgFull);
+  const [setBgImage] = useState(bgFull);
 
   useEffect(() => {
     const handleResize = () => {
@@ -83,108 +37,305 @@ export default function Layanan() {
   }, []);
 
   return (
-    <section
-      className="relative"
-      style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.35)), url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 py-12 min-[992px]:py-20">
-        {/* Header */}
-        <div className="text-center mb-8 min-[320px]:mt-7 min-[992px]:mt-4 min-[992px]:mb-10 md:mt-10">
-          <div className="relative inline-block">
-            {/* Teks bayangan (hitam di belakang) */}
-            <h2 className="absolute top-[3px] text-2xl sm:text-3xl font-extrabold text-black transform -skew-x-1">
-              Bidang Usaha
-            </h2>
-            {/* Teks utama (putih di depan) */}
-            <h2 className="relative text-2xl sm:text-3xl font-extrabold text-white">
-              Bidang Usaha
-            </h2>
-          </div>
-          <div className="mx-auto mt-4 mb-4 h-[3px] w-16  bg-white"></div>
-          <p className="mt-2 text-white/80 max-w-2xl mx-auto">
-            {/* Versi untuk layar >400px */}
-            <span className="hidden min-[401px]:block">
-              Kami Menyediakan Solusi Konstruksi Lengkap Dengan Kualitas
-              <br />
-              Terbaik Dan Layanan Profesional
-            </span>
+    <section className="relative min-h-screen pb-12 md:pb-16 lg:pb-20">
+      {/* Background Mobile & MD */}
+      <div
+        className="lg:hidden absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.35)), url(${bgMobile})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
-            {/* Versi untuk layar <=400px */}
-            <span className="block min-[401px]:hidden">
-              Kami Menyediakan Solusi Konstruksi Lengkap
-              <br />
-              Dengan Kualitas Terbaik Dan Layanan Profesional
-            </span>
+      {/* Background Desktop (LG+) */}
+      <div
+        className="hidden lg:block absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.35)), url(${bgFull})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+
+      {/* Container dengan max-width 1440px */}
+      <div className="relative z-10 mx-auto max-w-[1200px] lg:max-w-[1440px]">
+        {/* Header - Spacer untuk navbar */}
+        <div className="h-16" />
+        
+        {/* Text Section - Dengan padding horizontal */}
+        <div className="pt-6 sm:pt-8 md:pt-10 lg:pt-12 text-center px-4 sm:px-6">
+          <h2 
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-3"
+            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          >
+            Bidang Usaha
+          </h2>
+          
+          <div className="h-1 w-24 md:w-32 bg-white/80 rounded-full mx-auto mb-5" />
+          
+          <p 
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 max-w-2xl mx-auto leading-relaxed"
+            style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" }}
+          >
+            Kami Menyediakan Solusi Konstruksi Lengkap Dengan Kualitas Terbaik Dan Layanan Profesional
           </p>
+        </div>
 
-          {/* Konten 3 row × 2 kolom */}
-          <div className="mt-8 grid grid-cols-12 gap-6">
-            {/* === Baris 1 === */}
-            <div className="col-span-12 xl:col-span-4 xl:[margin-left:calc((100vw-1200px)/-1)] ">
+        {/* ========== LAYANAN 1: KONTRAKTOR UMUM (KIRI) ========== */}
+        <div className="mt-7 md:mt-10 lg:mt-16">
+          {/* Mobile & MD */}
+          <div className="lg:hidden">
+            <div className="relative w-[250px] md:w-[370px]">
               <img
-                src={img1}
+                src={layanan1Mobile}
                 alt="Kontraktor Umum"
-                className="w-full h-auto rounded-xl object-cover"
+                className="w-full h-auto object-cover"
+                loading="lazy"
               />
+              
+              <div className="absolute bottom-0 left-[15%] sm:left-[8%] md:left-[20%] -translate-x-1/2 translate-y-1/2 w-12 h-12 rounded-full bg-[#A20000] flex items-center justify-center shadow-lg z-10 border-2 border-white">
+                <img src={buildingIcon} alt="Ikon bangunan" className="w-5 h-5 brightness-0 invert" />
+              </div>
             </div>
-            {/* pertahankan proporsi desktop seperti kode kamu (6/12) */}
-            <div className="col-span-12 xl:col-span-8 flex flex-col justify-center xl:pl-8">
-              <h3 className="text-white text-lg sm:text-xl font-extrabold tracking-wide uppercase text-left">
+
+            <div className="mt-6 md:mt-8 px-4">
+              <h3 
+                className="text-[#FAFAFA] font-extrabold mb-3"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '20px', lineHeight: '1.3' }}
+              >
                 KONTRAKTOR UMUM
               </h3>
 
-              {/* Bubble deskripsi (punya background) */}
-              <div className="mt-3 inline-block max-w-[760px] rounded-2xl bg-white/10 px-6 py-4 text-white/80 text-left">
-                Menyediakan persiapan lahan, pembangunan saluran air, pekerjaan
-                kolam detensi, pekerjaan galian tanah, serta
-                pembangunan/pembuatan jalan.
+              <div className="bg-[#4C4C4C]/50 backdrop-blur-sm p-4 md:p-5" style={{ borderRadius: '15px' }}>
+                <p 
+                  className="text-[#FAFAFA] leading-relaxed"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '15px', fontWeight: 400 }}
+                >
+                  Menyediakan persiapan lahan, pembangunan saluran air, pekerjaan kolam detensi, pekerjaan galian tanah, serta pembangunan pembuatan jalan.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop LG+ */}
+          <div className="hidden lg:flex items-center gap-[62px]">
+            {/* Gambar Kiri - Rounded + Border di 2XL */}
+            <div className="relative shrink-0">
+              <img 
+                src={layanan1Desktop} 
+                alt="Kontraktor Umum" 
+                className="w-[450px] xl:w-[500px] h-auto object-cover 2xl:rounded-3xl 2xl:border-2 2xl:border-white" 
+                loading="lazy" 
+              />
+              
+              <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-16 h-16 xl:w-20 xl:h-20 rounded-full bg-[#A20000] flex items-center justify-center shadow-lg z-10 border-2 border-white">
+                <img src={buildingIcon} alt="Ikon bangunan" className="w-7 h-7 xl:w-9 xl:h-9 brightness-0 invert" />
               </div>
             </div>
 
-            {/* === Baris 2 === */}
-            {/* di mobile: tampilkan gambar dulu → order-1; di xl kembali normal */}
-            <div className="col-span-12 xl:col-span-8 flex flex-col justify-center xl:pl-8">
-              <h3 className="text-white text-lg sm:text-xl font-extrabold tracking-wide uppercase text-right">
-                SUPPLIER BAHAN ALAM
+            {/* Text Kanan */}
+            <div className="flex-1 pr-6">
+              <h3 
+                className="text-[#FAFAFA] font-extrabold mb-4 text-2xl xl:text-3xl"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                KONTRAKTOR UMUM
               </h3>
-              <div className="mt-3 inline-block max-w-[760px] rounded-2xl bg-white/10 px-6 py-4 text-white/80 text-justify">
-                Menyediakan berbagai material konstruksi berbasis sumber daya
-                alam dengan kualitas terjamin untuk mendukung kelancaran proyek
-                pembangunan.
+
+              <div className="bg-[#4C4C4C]/60 backdrop-blur-sm p-6 xl:p-7 rounded-2xl">
+                <p 
+                  className="text-[#FAFAFA] leading-relaxed text-lg xl:text-xl"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 400 }}
+                >
+                  Menyediakan persiapan lahan, pembangunan saluran air, pekerjaan kolam detensi, pekerjaan galian tanah, serta pembangunan pembuatan jalan.
+                </p>
               </div>
             </div>
-            <div className="col-span-12 xl:col-span-4 xl:[margin-right:calc((100vw-1175px)/-2)]">
-              <img
-                src={img2}
-                alt="Kontraktor Umum"
-                className="w-full h-auto rounded-xl object-cover"
-              />
+          </div>
+        </div>
+
+        {/* ========== LAYANAN 2: SUPPLIER MATERIAL ALAM (KANAN) ========== */}
+        <div className="mt-7 md:mt-10 lg:mt-16">
+          {/* Mobile & MD */}
+          <div className="lg:hidden">
+            <div className="relative flex justify-end">
+              <div className="w-[250px] md:w-[370px] relative">
+                <img src={layanan2Mobile} alt="Supplier Material Alam" className="w-full h-auto object-cover" loading="lazy" />
+                
+                <div className="absolute bottom-0 right-[15%] sm:right-[8%] md:right-[20%] translate-x-1/2 translate-y-1/2 w-12 h-12 rounded-full bg-[#A20000] flex items-center justify-center shadow-lg z-10 border-2 border-white">
+                  <img src={rockIcon} alt="Ikon batu" className="w-5 h-5 brightness-0 invert" />
+                </div>
+              </div>
             </div>
 
-            {/* === Baris 3 === */}
-            <div className="col-span-12 xl:col-span-4 xl:[margin-left:calc((100vw-1200px)/-1)]">
-              <img
-                src={img3}
-                alt="Kontraktor Umum"
-                className="w-full h-auto rounded-xl object-cover"
-              />
+            <div className="mt-6 md:mt-8 px-4">
+              <h3 
+                className="text-[#FAFAFA] font-extrabold mb-3 text-right"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '20px', lineHeight: '1.3' }}
+              >
+                SUPPLIER MATERIAL ALAM
+              </h3>
+
+              <div className="bg-[#4C4C4C]/50 backdrop-blur-sm p-4 md:p-5" style={{ borderRadius: '15px' }}>
+                <p 
+                  className="text-[#FAFAFA] leading-relaxed mb-3 md:mb-4"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '15px', fontWeight: 400 }}
+                >
+                  Menyediakan berbagai material konstruksi berbasis sumber daya alam dengan kualitas terjamin untuk mendukung kelancaran proyek pembangunan.
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-3 md:mb-4">
+                  {['Pasir Cuci', 'Pasir Urug', 'Pasir Abu Batu', 'Batu Belah', 'Split', 'Bahan Material Lainnya'].map((tag) => (
+                    <span key={tag} className="border border-[#4C4C4C] text-white/50" style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", fontSize: '15px', paddingTop: '3.5px', paddingBottom: '3.5px', paddingLeft: '11px', paddingRight: '11px', borderRadius: '45px' }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <Link to="/dokumen/uji-lab" className="inline-flex items-center gap-2 bg-[#782525] text-white hover:bg-[#5f1e1e] transition-colors" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '15px', padding: '10px 20px', borderRadius: '15px' }}>
+                  Bukti Uji Lab
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 7h10v10" />
+                    <path d="M7 17L17 7" />
+                  </svg>
+                </Link>
+              </div>
             </div>
-            <div className="col-span-12 xl:col-span-8 flex flex-col justify-center xl:pl-8">
-              <h3 className="text-white text-lg sm:text-xl font-extrabold tracking-wide uppercase text-left">
+          </div>
+
+          {/* Desktop LG+ */}
+          <div className="hidden lg:flex items-center gap-[62px]">
+            {/* Text Kiri */}
+            <div className="flex-1 pl-6">
+              <h3 
+                className="text-[#FAFAFA] font-extrabold mb-4 text-2xl xl:text-3xl text-right"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                SUPPLIER MATERIAL ALAM
+              </h3>
+
+              <div className="bg-[#4C4C4C]/60 backdrop-blur-sm p-6 xl:p-7 rounded-2xl">
+                <p 
+                  className="text-[#FAFAFA] leading-relaxed text-lg xl:text-xl mb-4"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 400 }}
+                >
+                  Menyediakan berbagai material konstruksi berbasis sumber daya alam dengan kualitas terjamin untuk mendukung kelancaran proyek pembangunan.
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {['Pasir Cuci', 'Pasir Urug', 'Pasir Abu Batu', 'Batu Belah', 'Split', 'Bahan Material Lainnya'].map((tag) => (
+                    <span key={tag} className="border border-[#4C4C4C] text-white/50 text-sm xl:text-base" style={{ paddingTop: '4px', paddingBottom: '4px', paddingLeft: '12px', paddingRight: '12px', borderRadius: '45px' }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <Link to="/dokumen/uji-lab" className="inline-flex items-center gap-2 bg-[#782525] text-white hover:bg-[#5f1e1e] transition-colors px-5 py-2.5 rounded-xl text-base xl:text-lg">
+                  Bukti Uji Lab
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M7 7h10v10" />
+                    <path d="M7 17L17 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Gambar Kanan - Rounded + Border di 2XL */}
+            <div className="relative shrink-0">
+              <img 
+                src={layanan2Desktop} 
+                alt="Supplier Material Alam" 
+                className="w-[450px] xl:w-[500px] h-auto object-cover 2xl:rounded-3xl 2xl:border-2 2xl:border-white" 
+                loading="lazy" 
+              />
+              
+              <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-16 h-16 xl:w-20 xl:h-20 rounded-full bg-[#A20000] flex items-center justify-center shadow-lg z-10 border-2 border-white">
+                <img src={rockIcon} alt="Ikon batu" className="w-7 h-7 xl:w-9 xl:h-9 brightness-0 invert" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ========== LAYANAN 3: HEAVY EQUIPMENT RENTAL (KIRI) ========== */}
+        <div className="mt-7 md:mt-10 lg:mt-16 pb-8">
+          {/* Mobile & MD */}
+          <div className="lg:hidden">
+            <div className="relative w-[250px] md:w-[370px]">
+              <img src={layanan3Mobile} alt="Heavy Equipment Rental" className="w-full h-auto object-cover" loading="lazy" />
+              
+              <div className="absolute bottom-0 left-[15%] sm:left-[8%] md:left-[20%] -translate-x-1/2 translate-y-1/2 w-12 h-12 rounded-full bg-[#A20000] flex items-center justify-center shadow-lg z-10 border-2 border-white">
+                <img src={truckIcon} alt="Ikon truk" className="w-5 h-5 brightness-0 invert" />
+              </div>
+            </div>
+
+            <div className="mt-6 md:mt-8 px-4">
+              <h3 
+                className="text-[#FAFAFA] font-extrabold mb-3"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '20px', lineHeight: '1.3' }}
+              >
                 HEAVY EQUIPMENT RENTAL
               </h3>
 
-              {/* Bubble deskripsi (punya background) */}
-              <div className="mt-3 inline-block max-w-[760px] rounded-2xl bg-white/10 px-6 py-4 text-white/80 text-justify">
-                Kami menyediakan layanan penyewaan alat berat yang handal dan
-                terawat untuk mendukung kelancaran proyek konstruksi maupun
-                infrastruktur. Dengan armada yang lengkap, harga kompetitif,
-                serta pelayanan yang profesional, kami siap menjadi mitra
-                terpercaya bagi setiap kebutuhan proyek Anda.
+              <div className="bg-[#4C4C4C]/50 backdrop-blur-sm p-4 md:p-5" style={{ borderRadius: '15px' }}>
+                <p 
+                  className="text-[#FAFAFA] leading-relaxed mb-3 md:mb-4"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '15px', fontWeight: 400 }}
+                >
+                  Kami menyediakan layanan penyewaan alat berat yang handal dan terawat untuk mendukung kelancaran proyek konstruksi maupun infrastruktur. Dengan armada yang lengkap, harga kompetitif, serta pelayanan yang profesional, kami siap menjadi mitra terpercaya bagi setiap kebutuhan proyek Anda.
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {['Excavator', 'Truk', 'Pickup', 'Peralatan Pendukung Lainnya'].map((tag) => (
+                    <span key={tag} className="border border-[#4C4C4C] text-white/50" style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", fontSize: '15px', paddingTop: '3.5px', paddingBottom: '3.5px', paddingLeft: '11px', paddingRight: '11px', borderRadius: '45px' }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop LG+ */}
+          <div className="hidden lg:flex items-center gap-[62px]">
+            {/* Gambar Kiri - Rounded + Border di 2XL */}
+            <div className="relative shrink-0">
+              <img 
+                src={layanan3Desktop} 
+                alt="Heavy Equipment Rental" 
+                className="w-[450px] xl:w-[500px] h-auto object-cover 2xl:rounded-3xl 2xl:border-2 2xl:border-white" 
+                loading="lazy" 
+              />
+              
+              <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-16 h-16 xl:w-20 xl:h-20 rounded-full bg-[#A20000] flex items-center justify-center shadow-lg z-10 border-2 border-white">
+                <img src={truckIcon} alt="Ikon truk" className="w-7 h-7 xl:w-9 xl:h-9 brightness-0 invert" />
+              </div>
+            </div>
+
+            {/* Text Kanan */}
+            <div className="flex-1 pr-6">
+              <h3 
+                className="text-[#FAFAFA] font-extrabold mb-4 text-2xl xl:text-3xl"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                HEAVY EQUIPMENT RENTAL
+              </h3>
+
+              <div className="bg-[#4C4C4C]/60 backdrop-blur-sm p-6 xl:p-7 rounded-2xl">
+                <p 
+                  className="text-[#FAFAFA] leading-relaxed text-lg xl:text-xl mb-4"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 400 }}
+                >
+                  Kami menyediakan layanan penyewaan alat berat yang handal dan terawat untuk mendukung kelancaran proyek konstruksi maupun infrastruktur. Dengan armada yang lengkap, harga kompetitif, serta pelayanan yang profesional, kami siap menjadi mitra terpercaya bagi setiap kebutuhan proyek Anda.
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {['Excavator', 'Truk', 'Pickup', 'Peralatan Pendukung Lainnya'].map((tag) => (
+                    <span key={tag} className="border border-[#4C4C4C] text-white/50 text-sm xl:text-base" style={{ paddingTop: '4px', paddingBottom: '4px', paddingLeft: '12px', paddingRight: '12px', borderRadius: '45px' }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

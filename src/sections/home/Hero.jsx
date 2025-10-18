@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import carousel1 from "../../assets/images/carousel_1.png";
 import carousel2 from "../../assets/images/carousel_2.png";
 import carousel3 from "../../assets/images/carousel_3.png";
@@ -389,20 +390,22 @@ function TextBlock({ content, styleBase, state, duration }) {
       )}
 
       <div className="pointer-events-auto">
-        <button
-          className="mt-8 border border-[#A20000] rounded-[45px] text-[#A20000] font-bold transition-colors duration-300 ease-out hover:bg-[#A20000] hover:text-white"
-          style={{
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontWeight: 700,
-            fontSize: "clamp(12px, 1.3vw, 14px)",
-            padding: "clamp(10px, 1.2vw, 12px) clamp(22px, 2vw, 32px)",
-            letterSpacing: "0.01em",
-            animation: baseAnim,
-            animationDelay: "120ms",
-          }}
-        >
-          SELENGKAPNYA
-        </button>
+        <Link to="/about">
+          <button
+            className="mt-8 border border-[#A20000] rounded-[45px] text-[#A20000] font-bold transition-colors duration-300 ease-out hover:bg-[#A20000] hover:text-white"
+            style={{
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontWeight: 700,
+              fontSize: "clamp(12px, 1.3vw, 14px)",
+              padding: "clamp(10px, 1.2vw, 12px) clamp(22px, 2vw, 32px)",
+              letterSpacing: "0.01em",
+              animation: baseAnim,
+              animationDelay: "120ms",
+            }}
+          >
+            SELENGKAPNYA
+          </button>
+        </Link>
       </div>
     </div>
   );
@@ -452,20 +455,22 @@ function MobileTextBlock({ content, state, duration }) {
       )}
 
       <div className="pointer-events-auto flex justify-center">
-        <button
-          className="mt-5 inline-flex items-center justify-center border border-[#A20000] rounded-[45px] text-[#A20000] font-bold transition-colors duration-300 ease-out hover:bg-[#A20000] hover:text-white"
-          style={{
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontWeight: 700,
-            fontSize: "12px",
-            padding: "10px 22px",
-            letterSpacing: "0.01em",
-            animation: baseAnim,
-            animationDelay: "120ms",
-          }}
-        >
-          SELENGKAPNYA
-        </button>
+        <Link to="/about">
+          <button
+            className="mt-5 inline-flex items-center justify-center border border-[#A20000] rounded-[45px] text-[#A20000] font-bold transition-colors duration-300 ease-out hover:bg-[#A20000] hover:text-white"
+            style={{
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontWeight: 700,
+              fontSize: "12px",
+              padding: "10px 22px",
+              letterSpacing: "0.01em",
+              animation: baseAnim,
+              animationDelay: "120ms",
+            }}
+          >
+            SELENGKAPNYA
+          </button>
+        </Link>
       </div>
     </div>
   );

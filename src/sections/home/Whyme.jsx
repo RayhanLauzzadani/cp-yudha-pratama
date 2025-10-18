@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 import bgMengapaKamiMobile from "../../assets/icons/bg-mengapakami_mobile.png";
 import bgMengapaKamiDesktop from "../../assets/icons/bg-mengapakami.png";
@@ -37,9 +38,6 @@ const PANELS = [
 ];
 
 const EASE = [0.16, 1, 0.3, 1];
-const CARD_EASE = [0.22, 1, 0.36, 1];
-const DUR = 0.65;
-const CARD_DUR = 0.5;
 const AUTOPLAY_MS = 5500;
 const PARTNER_AUTOPLAY_MS = 5000;
 
@@ -212,7 +210,7 @@ export default function Whyme() {
           </div>
         </div>
 
-        {/* ========== MOBILE: STEPPER & CARDS ========== */}
+        {/* ========== MOBILE: STEPPER & CARDS - MORPH ANIMATION ========== */}
         <div className="lg:hidden">
           <div className="relative mx-auto max-w-[268px] px-8 h-[45px] mt-[18px]">
             <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-[2px] bg-[#5F5F5F] z-0" />
@@ -259,112 +257,66 @@ export default function Whyme() {
             </div>
           </div>
 
-          <LayoutGroup>
-            <motion.div
-              layout
-              className="mt-[15px] w-full flex justify-center"
-              transition={{ duration: DUR, ease: EASE }}
-            >
-              <div className="w-full max-w-[360px] space-y-2">
-                {PANELS.map((panel, i) => {
-                  const isActive = i === activeIdx;
-                  return (
-                    <motion.div
-                      key={i}
-                      layout
-                      transition={{
-                        duration: DUR,
-                        ease: EASE,
-                        delay: i * 0.04,
-                      }}
-                      className={!isActive ? "cursor-pointer" : undefined}
-                      onClick={() => !isActive && setActiveIdx(i)}
-                      whileHover={!isActive ? { scale: 1.02 } : {}}
-                    >
-                      <AnimatePresence initial={false} mode="wait">
-                        {isActive ? (
-                          <motion.div
-                            key={`card-${i}`}
-                            layout
-                            className="w-full bg-white rounded-2xl shadow-sm"
-                            initial={{
-                              borderRadius: 999,
-                              height: 12,
-                              width: 200,
-                              opacity: 0,
-                              scale: 0.95,
-                            }}
-                            animate={{
-                              borderRadius: 16,
-                              height: "auto",
-                              width: "100%",
-                              opacity: 1,
-                              scale: 1,
-                            }}
-                            exit={{
-                              borderRadius: 999,
-                              height: 12,
-                              width: 200,
-                              opacity: 0,
-                              scale: 0.95,
-                            }}
-                            transition={{
-                              duration: DUR,
-                              ease: EASE,
-                              layout: { duration: DUR * 0.8 },
+          {/* CARDS - MORPH ANIMATION */}
+          <div className="mt-[15px] w-full flex justify-center">
+            <div className="w-full max-w-[360px] space-y-2">
+              {PANELS.map((panel, i) => {
+                const isActive = i === activeIdx;
+                return (
+                  <div
+                    key={i}
+                    className={!isActive ? "cursor-pointer" : undefined}
+                    onClick={() => !isActive && setActiveIdx(i)}
+                  >
+                    {isActive ? (
+                      <motion.div
+                        layoutId={`panel-${i}`}
+                        className="w-full bg-white rounded-2xl shadow-sm overflow-hidden"
+                        transition={{
+                          layout: { duration: 0.4, ease: EASE },
+                        }}
+                      >
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3, delay: 0.1 }}
+                          className="px-[15px] py-[12px]"
+                        >
+                          <p className="italic font-bold text-[12px] text-[#383838] mb-1 font-jakarta">
+                            {panel.tag}
+                          </p>
+                          <h3 className="text-[18px] font-[800] text-[#A20000] leading-snug mb-2 font-jakarta">
+                            {panel.title}
+                          </h3>
+                          <p
+                            className="text-[12px] leading-relaxed text-[#383838]"
+                            style={{
+                              fontFamily: '"Segoe UI", SegoeUI, sans-serif',
                             }}
                           >
-                            <motion.div
-                              layout
-                              className="px-[15px] py-[12px]"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -10 }}
-                              transition={{
-                                duration: DUR * 0.5,
-                                ease: EASE,
-                                delay: 0.12,
-                              }}
-                            >
-                              <p className="italic font-bold text-[12px] text-[#383838] mb-1 font-jakarta">
-                                {panel.tag}
-                              </p>
-                              <h3 className="text-[18px] font-[800] text-[#A20000] leading-snug mb-2 font-jakarta">
-                                {panel.title}
-                              </h3>
-                              <p
-                                className="text-[12px] leading-relaxed text-[#383838]"
-                                style={{
-                                  fontFamily: '"Segoe UI", SegoeUI, sans-serif',
-                                }}
-                              >
-                                {panel.desc}
-                              </p>
-                            </motion.div>
-                          </motion.div>
-                        ) : (
-                          <motion.div
-                            key={`bar-${i}`}
-                            layout
-                            className="rounded-full bg-white shadow-sm border border-white/70"
-                            style={{
-                              height: 12,
-                              width: 200,
-                              borderRadius: 999,
-                            }}
-                            transition={{ duration: DUR * 0.7, ease: EASE }}
-                            initial={{ opacity: 0, scale: 0.85 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.85 }}
-                          />
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </LayoutGroup>
+                            {panel.desc}
+                          </p>
+                        </motion.div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        layoutId={`panel-${i}`}
+                        className="rounded-full bg-white shadow-sm border border-white/70"
+                        style={{
+                          height: 12,
+                          width: 200,
+                        }}
+                        transition={{
+                          layout: { duration: 0.4, ease: EASE },
+                        }}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         {/* ========== DESKTOP: GRID LAYOUT (Kiri: Text | Tengah: Stepper | Kanan: Card) ========== */}
@@ -394,8 +346,8 @@ export default function Whyme() {
                 </p>
 
                 {/* Button Selengkapnya */}
-                <a
-                  href="#about"
+                <Link
+                  to="/about#why-choose-us"
                   className="mt-4 xl:mt-5 inline-flex items-center gap-2 rounded-[45px] border border-white bg-transparent lg:px-5 lg:py-[9px] xl:px-6 xl:py-[10px] lg:text-[12px] xl:text-[13px] font-semibold tracking-[0.02em] text-white hover:bg-white/10 transition"
                   style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                 >
@@ -414,7 +366,7 @@ export default function Whyme() {
                       d="M9 5l7 7-7 7"
                     />
                   </svg>
-                </a>
+                </Link>
               </div>
             </div>
 

@@ -95,7 +95,10 @@ export default function WhyChooseUs() {
   }, []);
 
   return (
-    <section className="relative w-full pt-4 sm:pb-18 sm:pt-4 md:pb-5 lg:pb-8 overflow-hidden">
+    <section 
+      id="why-choose-us"
+      className="relative w-full pt-4 sm:pb-18 sm:pt-4 md:pb-5 lg:pb-8 overflow-hidden scroll-mt-20"
+    >
       {/* ========== BACKGROUNDS ========== */}
 
       {/* Background image mobile */}

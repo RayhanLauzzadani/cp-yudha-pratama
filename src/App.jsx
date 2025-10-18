@@ -3,9 +3,7 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import Home from "./pages/Home.jsx";
 import AboutPage from "./pages/About.jsx";
 import ServicesPage from "./pages/Layanan.jsx";
-// import ProjectsPage from "./pages/ProjectsPage.jsx";
-// import GalleryPage from "./pages/GalleryPage.jsx";
-// import ContactPage from "./pages/ContactPage.jsx";
+import ProyekPage from "./pages/Proyek.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
@@ -18,9 +16,7 @@ export default function App() {
         {/* Halaman terpisah */}
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
-        {/* <Route path="/projects" element={<ProjectsPage />} /> */}
-        {/* <Route path="/gallery" element={<GalleryPage />} /> */}
-        {/* <Route path="/contact" element={<ContactPage />} /> */}
+        <Route path="/proyek" element={<ProyekPage />} />
       </Route>
 
       {/* 404 Route */}

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 import jaringBg from '../../assets/icons/jaring.png';
 import jaringMobileBg from '../../assets/icons/jaring_mobile.png';
 import { projects, projectCategories } from '../../data/projects';
 
 const Projects = () => {
+  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
   const [activeCategory, setActiveCategory] = useState('semua');
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -243,6 +245,7 @@ const Projects = () => {
             style={{ opacity: isTransitioning ? 0 : 1 }}
           >
             <button 
+              onClick={() => navigate('/proyek')}
               className="flex items-center gap-1.5 sm:gap-2 px-5 py-2 sm:px-6 sm:py-2.5 lg:px-8 lg:py-3 
                          border-2 border-[#A20000] text-[#A20000] 
                          rounded-full font-semibold hover:bg-[#A20000] hover:text-white 
